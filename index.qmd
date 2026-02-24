@@ -1,37 +1,31 @@
 ---
-title: "Sistemas Embarcados / Embedded Systems"
-subtitle: "Material Didático para 15 Semanas | 15-Week Course Material"
+title: "Sistemas Embarcados I / *Embedded Systems I*"
+subtitle: "Faculdade de Engenharia de Controle e Automação, Universidade Federal de Uberlândia"
 format:
   html:
-    page-layout: full
+    title-block-banner: true
+    page-layout: custom
+    toc: false
+    anchor-sections: false
 ---
 
-::: {.column-screen-inset .text-center}
+<script>
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+</script>
 
-# Bem-vindo! / Welcome!
+::: {.column-screen .text-center style="background-color: var(--light-grey); margin-top: 0; margin-bottom: 0; padding-top: 80px; padding-bottom: 80px;"}
 
-Escolha o idioma para acessar o material do curso:
-Please choose your language to access the course material:
+Bem-vindo à disciplina de Sistemas Embarcados I. Escolha o idioma para iniciar.   
+*Welcome to the Embedded Systems I course. Select a language to begin.*
 
-<br/>
+<br>
 
-::: {layout-ncol=2}
-
-### [🇧🇷 Português (Brasil)](pt-br/index.html)
-Material completo com teoria e roteiros de laboratório em português.
-
-### [🇺🇸 English](en/index.html)
-Full course material with theory and lab guides in English.
-
+::: {.d-grid .gap-3 .d-sm-flex .justify-content-sm-center .mt-4}
+[🇧🇷 Português (Brasil)](pt-br/index.html){.btn .btn-primary .btn-lg .btn-language role="button"}
+[🇺🇸 English Version](en/index.html){.btn .btn-outline-primary .btn-lg .btn-language role="button"}
 :::
-
-<br/>
-
----
-
-### Sobre o Curso / About the Course
-Este material cobre desde GPIOs até sistemas de tempo real (RTOS), divididos em 15 semanas de aprendizado prático e teórico.
-
-*This material covers everything from GPIOs to Real-Time Operating Systems (RTOS), divided into 15 weeks of practical and theoretical learning.*
 
 :::

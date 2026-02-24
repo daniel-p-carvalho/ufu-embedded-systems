@@ -1,21 +1,40 @@
 project:
   type: website
-  # List the directories that Quarto should process
+
+  # List the directories that Quarto should process to generate the site
   render:
+    - index.qmd
     - "pt-br/"
     - "en/"
+
+website:
+  title: ""
+  navbar:
+    logo: shared/images/logo-ufu.svg
+    background: "#003366" # Matches your --ufu-blue
+    collapse: true
+    right:
+      - icon: github
+        href: https://github.com/seu-usuario/seu-repositorio
+        aria-label: GitHub Repository
+  
+  # ADICIONE ESTE BLOCO AQUI:
+  page-footer:
+    background: "#003366" # Cor institucional UFU
+    center: "© 2026 Faculdade de Engenharia de Controle e Automação - UFU"
 
 # Formatting configurations applied to the entire course
 format:
   html:
-    theme: cosmo
+    theme:                   # Custom themes for light and dark modes
+      light: cosmo
+      dark: darkly
     css: styles.css          # CSS for text justification and centered captions
     toc: true                # Sidebar Table of Contents on all pages
-    number-sections: true    # Automatic numbering (e.g., 1.1, 1.2...)
+    number-sections: false   # Automatic numbering (e.g., 1.1, 1.2...)
     code-copy: true          # Enables the "copy code" button for students
     highlight-style: github  # Syntax highlighting style for C/C++ code
 
-# Assets that Quarto should simply "copy" to the final site
 resources:
   - shared/
   - styles.css

@@ -1,0 +1,10 @@
+---
+title: "Embedded Systems I - Semana 1"
+subtitle: "Introdução aos Sistemas Embarcados"
+lang: pt-BR
+format:
+  html:
+    page-layout: full
+    toc: false
+    anchor-sections: false
+---
