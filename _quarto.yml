@@ -1,0 +1,24 @@
+project:
+  type: website
+  # List the directories that Quarto should process
+  render:
+    - "pt-br/"
+    - "en/"
+
+# Formatting configurations applied to the entire course
+format:
+  html:
+    theme: cosmo
+    css: styles.css          # CSS for text justification and centered captions
+    toc: true                # Sidebar Table of Contents on all pages
+    number-sections: true    # Automatic numbering (e.g., 1.1, 1.2...)
+    code-copy: true          # Enables the "copy code" button for students
+    highlight-style: github  # Syntax highlighting style for C/C++ code
+
+# Assets that Quarto should simply "copy" to the final site
+resources:
+  - shared/
+  - styles.css
+
+# Default language (applied if the student enters the root)
+lang: pt-BR

@@ -1,0 +1,37 @@
+---
+title: "Sistemas Embarcados / Embedded Systems"
+subtitle: "Material Didático para 15 Semanas | 15-Week Course Material"
+format:
+  html:
+    page-layout: full
+---
+
+::: {.column-screen-inset .text-center}
+
+# Bem-vindo! / Welcome!
+
+Escolha o idioma para acessar o material do curso:
+Please choose your language to access the course material:
+
+<br/>
+
+::: {layout-ncol=2}
+
+### [🇧🇷 Português (Brasil)](pt-br/index.html)
+Material completo com teoria e roteiros de laboratório em português.
+
+### [🇺🇸 English](en/index.html)
+Full course material with theory and lab guides in English.
+
+:::
+
+<br/>
+
+---
+
+### Sobre o Curso / About the Course
+Este material cobre desde GPIOs até sistemas de tempo real (RTOS), divididos em 15 semanas de aprendizado prático e teórico.
+
+*This material covers everything from GPIOs to Real-Time Operating Systems (RTOS), divided into 15 weeks of practical and theoretical learning.*
+
+:::
