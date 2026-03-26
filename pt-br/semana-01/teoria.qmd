@@ -1,6 +1,6 @@
 ---
 title: "Embedded Systems I - Semana 1"
-subtitle: "Introdução aos Sistemas Embarcados"
+subtitle: "Fundamentos de Desenvolvimento Bare-Metal"
 lang: pt-BR
 format:
   html:
