@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="pt-BR" xml:lang="pt-BR"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.27">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Sistemas Embarcados I / Embedded Systems I</title>
+<title>Sistemas Embarcados I - UFU</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -35,15 +35,12 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-b691acaa54d4a2006144f39d50a36a0c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-74aff0dc0ad8af2a4ba6e8cf7502ffe1.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-b691acaa54d4a2006144f39d50a36a0c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8c0a3deeea226c7169456b6146992f4f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -58,17 +55,17 @@ ul.task-list li input[type="checkbox"] {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Nenhum resultado",
-    "search-matching-documents-text": "documentos correspondentes",
-    "search-copy-link-title": "Copiar link para a busca",
-    "search-hide-matches-text": "Esconder correspondências adicionais",
-    "search-more-match-text": "mais correspondência neste documento",
-    "search-more-matches-text": "mais correspondências neste documento",
-    "search-clear-button-title": "Limpar",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancelar",
-    "search-submit-button-title": "Enviar",
-    "search-label": "Procurar"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -76,172 +73,10 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
-    const toggleBodyColorMode = (bsSheetEl) => {
-      const mode = bsSheetEl.getAttribute("data-mode");
-      const bodyEl = window.document.querySelector("body");
-      if (mode === "dark") {
-        bodyEl.classList.add("quarto-dark");
-        bodyEl.classList.remove("quarto-light");
-      } else {
-        bodyEl.classList.add("quarto-light");
-        bodyEl.classList.remove("quarto-dark");
-      }
-    }
-    const toggleBodyColorPrimary = () => {
-      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
-      if (bsSheetEl) {
-        toggleBodyColorMode(bsSheetEl);
-      }
-    }
-    const setColorSchemeToggle = (alternate) => {
-      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
-      for (let i=0; i < toggles.length; i++) {
-        const toggle = toggles[i];
-        if (toggle) {
-          if (alternate) {
-            toggle.classList.add("alternate");
-          } else {
-            toggle.classList.remove("alternate");
-          }
-        }
-      }
-    };
-    const toggleColorMode = (alternate) => {
-      // Switch the stylesheets
-      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
-      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
-      manageTransitions('#quarto-margin-sidebar .nav-link', false);
-      if (alternate) {
-        // note: dark is layered on light, we don't disable primary!
-        enableStylesheet(alternateStylesheets);
-        for (const sheetNode of alternateStylesheets) {
-          if (sheetNode.id === "quarto-bootstrap") {
-            toggleBodyColorMode(sheetNode);
-          }
-        }
-      } else {
-        disableStylesheet(alternateStylesheets);
-        enableStylesheet(primaryStylesheets)
-        toggleBodyColorPrimary();
-      }
-      manageTransitions('#quarto-margin-sidebar .nav-link', true);
-      // Switch the toggles
-      setColorSchemeToggle(alternate)
-      // Hack to workaround the fact that safari doesn't
-      // properly recolor the scrollbar when toggling (#1455)
-      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
-        manageTransitions("body", false);
-        window.scrollTo(0, 1);
-        setTimeout(() => {
-          window.scrollTo(0, 0);
-          manageTransitions("body", true);
-        }, 40);
-      }
-    }
-    const disableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        stylesheet.rel = 'disabled-stylesheet';
-      }
-    }
-    const enableStylesheet = (stylesheets) => {
-      for (let i=0; i < stylesheets.length; i++) {
-        const stylesheet = stylesheets[i];
-        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
-          stylesheet.rel = 'stylesheet';
-        }
-      }
-    }
-    const manageTransitions = (selector, allowTransitions) => {
-      const els = window.document.querySelectorAll(selector);
-      for (let i=0; i < els.length; i++) {
-        const el = els[i];
-        if (allowTransitions) {
-          el.classList.remove('notransition');
-        } else {
-          el.classList.add('notransition');
-        }
-      }
-    }
-    const isFileUrl = () => {
-      return window.location.protocol === 'file:';
-    }
-    const hasAlternateSentinel = () => {
-      let styleSentinel = getColorSchemeSentinel();
-      if (styleSentinel !== null) {
-        return styleSentinel === "alternate";
-      } else {
-        return false;
-      }
-    }
-    const setStyleSentinel = (alternate) => {
-      const value = alternate ? "alternate" : "default";
-      if (!isFileUrl()) {
-        window.localStorage.setItem("quarto-color-scheme", value);
-      } else {
-        localAlternateSentinel = value;
-      }
-    }
-    const getColorSchemeSentinel = () => {
-      if (!isFileUrl()) {
-        const storageValue = window.localStorage.getItem("quarto-color-scheme");
-        return storageValue != null ? storageValue : localAlternateSentinel;
-      } else {
-        return localAlternateSentinel;
-      }
-    }
-    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-      let newTheme = '';
-      if(authorPrefersDark) {
-        newTheme = isAlternate ? baseTheme : alternateTheme;
-      } else {
-        newTheme = isAlternate ? alternateTheme : baseTheme;
-      }
-      const changeGiscusTheme = () => {
-        // From: https://github.com/giscus/giscus/issues/336
-        const sendMessage = (message) => {
-          const iframe = document.querySelector('iframe.giscus-frame');
-          if (!iframe) return;
-          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-        }
-        sendMessage({
-          setConfig: {
-            theme: newTheme
-          }
-        });
-      }
-      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-      if (isGiscussLoaded) {
-        changeGiscusTheme();
-      }
-    };
-    const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
-      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
-    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
-    // Dark / light mode switch
-    window.quartoToggleColorScheme = () => {
-      // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
-    };
-    // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
-      toggleColorMode(true);
-    } else {
-      toggleColorMode(false);
-    }
-  </script>
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -249,67 +84,222 @@ ul.task-list li input[type="checkbox"] {
     <img src="./shared/images/logo-ufu.svg" alt="" class="navbar-logo light-content">
     <img src="./shared/images/logo-ufu.svg" alt="" class="navbar-logo dark-content">
     </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Sistemas Embarcados I - UFU</span>
+    </a>
   </div>
-            <div id="quarto-search" class="" title="Procurar"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Alternar de navegação" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/seu-usuario/seu-repositorio"> <i class="bi bi-github" role="img" aria-label="GitHub Repository">
+    <a class="nav-link" href="https://github.com/daniel-p-carvalho/ufu-embedded-systems"> <i class="bi bi-github" role="img" aria-label="GitHub Repository">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo escuro"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default">
-  <div class="quarto-title-banner">
-    <div class="quarto-title column-body">
-      <h1 class="title">Sistemas Embarcados I / <em>Embedded Systems I</em></h1>
-            <p class="subtitle lead">Faculdade de Engenharia de Controle e Automação, Universidade Federal de Uberlândia</p>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta">
-
-      
-    
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-layout-custom page-navbar">
+<div id="quarto-content" class="quarto-container page-layout-custom page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
 <!-- main -->
 
-
-
-
-
-
-<script>
-  if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
-  }
-  window.scrollTo(0, 0);
-</script>
-<div class="column-screen text-center" style="background-color: var(--light-grey); margin-top: 0; margin-bottom: 0; padding-top: 80px; padding-bottom: 80px;">
-<p>Bem-vindo à disciplina de Sistemas Embarcados I. Escolha o idioma para iniciar.<br>
-<em>Welcome to the Embedded Systems I course. Select a language to begin.</em></p>
-<p><br></p>
-<div class="d-grid gap-3 d-sm-flex justify-content-sm-center mt-4">
-<p><a href="pt-br/index.html" class="btn btn-primary btn-lg btn-language" role="button">🇧🇷 Português (Brasil)</a> <a href="en/index.html" class="btn btn-outline-primary btn-lg btn-language" role="button">🇺🇸 English Version</a></p>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Sistemas Embarcados I - UFU</h1>
 </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="landing-container">
+<section id="introdução" class="level2 unnumbered content-wrapper">
+<h2 class="unnumbered" data-anchor-id="introdução">Introdução</h2>
+<p>Bem-vindo à disciplina de Sistemas Embarcados I. Este curso foi concebido para proporcionar uma experiência <strong>teórico-prática completa</strong>, garantindo que, ao final da jornada, você possua o <strong>domínio técnico e a autonomia necessários para projetar e desenvolver sistemas embarcados do início ao fim</strong>, integrando plenamente hardware e firmware.</p>
+<p>O grande diferencial desta disciplina está na abordagem sistêmica: você aprenderá a projetar o <strong>hardware</strong> — incluindo esquemas eletrônicos e o design de PCBs — em conjunto com o desenvolvimento do <strong>firmware</strong>, elaborando o código de baixo nível que dá vida ao sistema. Dessa forma, você compreenderá a essência dessas tecnologias, desde seus fundamentos físicos e lógicos até a implementação de soluções robustas em dispositivos de alta complexidade.</p>
+<div class="text-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="shared/images/sistema-embarcado.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Sistema Embarcado: A união de Hardware e Firmware</figcaption>
+</figure>
+</div>
+</div>
+<p>Para alcançar esse nível de proficiência, utilizaremos a metodologia <strong>Bottom-Up</strong> (de baixo para cima). Nesta metodologia, o aprendizado é construído em etapas evolutivas, onde cada fase resolve um desafio técnico real e introduz um novo nível de sofisticação. Nesta abordagem, <strong>não utilizamos “caixas pretas”</strong>. Em vez disso, cada componente do sistema é compreendido em sua totalidade, desde os circuitos eletrônicos e o design de hardware até a programação de baixo nível e a integração de sistemas. A cada etapa, você enfrentará desafios técnicos reais, como a implementação de um driver para um periférico específico ou a otimização do consumo de energia, garantindo que o aprendizado seja prático, relevante e alinhado com as demandas do mercado.</p>
+<div class="text-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="shared/images/metodologia-bottom-up.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Metodologia Bottom-Up: Subindo os degraus da abstração</figcaption>
+</figure>
+</div>
+</div>
+<p>Diferente da plataforma Arduino, que agiliza o desenvolvimento ao esconder a complexidade do hardware através de abstrações de alto nível — como as funções <em>delay()</em> ou <em>millis()</em> que mascaram o funcionamento real dos timers e registradores — nosso foco é a transparência total. Aqui, você não utilizará funções de temporização ou bibliotecas prontas sem antes dominar o hardware e o firmware que as sustentam, compreendendo exatamente como os periféricos interagem com o núcleo do processador.</p>
+<p>Essa metodologia permite vivenciar os desafios reais da engenharia, como a gestão otimizada de recursos limitados, a depuração em nível de hardware e a criação de interfaces que unem eficiência e manutenibilidade. Ao escalar cada camada da arquitetura, você compreenderá a fundamentação técnica por trás de cada decisão de design, transformando a complexidade em um processo de desenvolvimento lógico, estruturado e profissional.</p>
+<p>O curso é fundamentado na arquitetura <strong>ARM Cortex-M</strong>, o padrão <em>de facto</em> na indústria global de tecnologia. A escolha desta plataforma não é apenas uma decisão pedagógica, mas um alinhamento estratégico com as demandas reais do mercado de engenharia:</p>
+<ul>
+<li><p><strong>Liderança Absoluta de Mercado:</strong> Com um ecossistema que movimenta mais de <strong>30 bilhões de chips anualmente</strong>, a arquitetura ARM sustenta cerca de <strong>90% dos dispositivos móveis do mundo</strong> e é a espinha dorsal da eletrônica automotiva e industrial moderna. Estudar ARM é aprender a tecnologia que move o planeta.</p></li>
+<li><p><strong>Controle Profissional vs.&nbsp;Prototipagem (ARM vs.&nbsp;Arduino):</strong> Enquanto plataformas como o Arduino (AVR) são excelentes portas de entrada para o hobby, o ARM Cortex-M oferece os recursos exigidos em produtos comerciais de alta performance. Aqui, exploramos o controle total sobre o hardware através do acesso direto a <strong>registradores, DMA e gerenciamento avançado de energia</strong>, competências essenciais para o desenvolvimento de produtos otimizados e escaláveis.</p></li>
+<li><p><strong>Determinismo e Confiabilidade (ARM vs.&nbsp;ESP32):</strong> Embora o ESP32 seja uma ferramenta poderosa para IoT, a linha ARM (como os STM32) oferece um ecossistema de <strong>depuração (Debug) profissional via SWD/JTAG</strong> incomparável. Isso permite ao engenheiro analisar o ciclo de instrução e garantir o determinismo temporal em sistemas críticos, onde falhas de milissegundos não são uma opção.</p></li>
+<li><p><strong>Versatilidade e Independência de Fabricante:</strong> Dominar o conjunto de instruções e a arquitetura ARM permite que transite livremente entre os maiores fabricantes de semicondutores do mundo (<strong>STMicroelectronics, NXP, Texas Instruments, Renesas</strong>). Você não aprende a programar um chip específico, mas sim a arquitetura que define o padrão global da engenharia de sistemas embarcados.</p></li>
+</ul>
+<div class="text-center">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="shared/images/ecossistema-arm.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>O Ecossistema ARM Cortex-M: Uma arquitetura unificada conectando dispositivos móveis, automação industrial (CLP/Robótica), sistemas automotivos (ECU) e Internet das Coisas (IoT).</figcaption>
+</figure>
+</div>
+</div>
+</section>
+</div>
+<div class="landing-container">
+<section id="ecossistema-de-desenvolvimento" class="level2 content-wrapper">
+<h2 data-anchor-id="ecossistema-de-desenvolvimento">Ecossistema de Desenvolvimento</h2>
+<p>Para as atividades práticas, utilizaremos ferramentas profissionais que priorizam o controle total sobre o ciclo de desenvolvimento e a visibilidade direta do hardware. Essas ferramentas permitem que você tenha acesso detalhado a cada etapa do processo, desde o projeto inicial do circuito até a programação e depuração do firmware, proporcionando uma compreensão profunda dos mecanismos internos do sistema.</p>
+<p>Ao optar por ambientes de desenvolvimento avançados — como editores extensíveis, toolchains profissionais e depuradores de baixo nível — é possível analisar o funcionamento dos periféricos, monitorar o estado interno do processador e identificar possíveis gargalos de desempenho, tudo em tempo real diretamente no hardware real. Assim, você estará preparado para enfrentar situações reais de engenharia, ajustando parâmetros, otimizando recursos e implementando soluções robustas. O uso dessas ferramentas profissionais também favorece a colaboração em projetos complexos, facilitando a documentação do processo e a integração entre equipes multidisciplinares. Dessa maneira, garantimos que o aprendizado seja não apenas prático, mas também alinhado com as exigências do mercado e com os padrões de qualidade internacional.</p>
+<section id="ferramentas-para-projeto-de-hardware" class="level3">
+<h3 data-anchor-id="ferramentas-para-projeto-de-hardware">Ferramentas para Projeto de Hardware</h3>
+<p>O desenvolvimento de hardware moderno é indissociável das ferramentas <strong>EDA</strong> (<em>Electronic Design Automation</em>). Estes ecossistemas automatizam a transição entre o conceito teórico e a implementação física, sendo indispensáveis para projetar, simular e validar esquemas eletrônicos com rigor técnico. Através de recursos avançados — como a verificação de regras elétricas (<strong>ERC</strong>) e de layout (<strong>DRC</strong>), visualização 3D e exportação de arquivos Gerber — as ferramentas <strong>EDA</strong> garantem que o layout da <strong>PCB</strong> possua a precisão necessária para a fabricação industrial. O domínio destas ferramentas é o que permite transformar circuitos complexos em produtos funcionais e confiáveis, assegurando a integração perfeita entre o hardware e o firmware em projetos de sistemas embarcados.</p>
+<p>Para colocar esses conceitos em prática, poderemos utilizar ferramentas que abrangem desde o ecossistema open-source até ferramentas que atendem aos padrões mais elevados da indústria. O <strong>KiCad</strong> será nossa base para o aprendizado de design de <strong>PCBs</strong>, oferecendo uma plataforma robusta e sem restrições de licenciamento. Para projetos que exigem uma integração profunda entre a eletrônica e o design mecânico, exploraremos o <strong>Autodesk Fusion 360</strong>, enquanto o <strong>Altium Designer</strong> se apresenta como uma solução de ponta para roteamento avançado e fluxos de trabalho profissionais. Cada uma dessas ferramentas tem suas vantagens e desvantagens, e a escolha entre elas dependerá do contexto do projeto, dos requisitos técnicos e das preferências pessoais. O importante é que, independentemente da ferramenta escolhida, o foco estará sempre na compreensão profunda dos princípios de design de hardware e na capacidade de criar soluções eficientes e escaláveis para sistemas embarcados.</p>
+<section id="kicad-eda" class="level4 content-card">
+<h4 data-anchor-id="kicad-eda"><strong>KiCad EDA</strong></h4>
+<div class="grid">
+<div class="g-col-12 g-col-md-3 text-center">
+<p><img src="shared/images/logo-kicad.png" class="img-fluid"></p>
+</div>
+<div class="g-col-12 g-col-md-9">
+<ul>
+<li><strong>Vantagens:</strong> Totalmente <em>open-source</em>, sem custos de licenciamento e com uma comunidade global vibrante. Possui um gerenciador de bibliotecas flexível e não impõe restrições ao tamanho da placa.</li>
+<li><strong>Desvantagens:</strong> Interface pode parecer menos intuitiva para quem vem de ferramentas comerciais; recursos de simulação nativa e roteamento interativo são menos avançados que soluções de ponta.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="autodesk-fusion-360" class="level4 content-card">
+<h4 data-anchor-id="autodesk-fusion-360"><strong>Autodesk Fusion 360</strong></h4>
+<div class="grid">
+<div class="g-col-12 g-col-md-3 text-center">
+<p><img src="shared/images/logo-fusion360.png" class="img-fluid"></p>
+</div>
+<div class="g-col-12 g-col-md-9">
+<ul>
+<li><strong>Vantagens:</strong> Integração nativa incomparável entre o design eletrônico (ECAD) e o design mecânico (MCAD). Excelente visualização 3D e facilidade para projetar gabinetes e caixas.</li>
+<li><strong>Desvantagens:</strong> Modelo de assinatura (licença gratuita limitada para estudantes); forte dependência de processamento em nuvem e conexão estável com a internet.</li>
+<li><strong>Atenção:</strong> Estudantes universitários podem acessar o <strong>Autodesk Fusion 360 Education License</strong>, que oferece uma licença gratuita de um ano (renovável) para uso acadêmico, garantindo acesso a todas as funcionalidades avançadas da plataforma.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="altium-designer" class="level4 content-card">
+<h4 data-anchor-id="altium-designer"><strong>Altium Designer</strong></h4>
+<div class="grid">
+<div class="g-col-12 g-col-md-3 text-center">
+<p><img src="shared/images/logo-altium.png" class="img-fluid"></p>
+</div>
+<div class="g-col-12 g-col-md-9">
+<ul>
+<li><strong>Vantagens:</strong> O padrão ouro da indústria. Possui ferramentas de roteamento interativo extremamente poderosas, gerenciamento avançado de regras de design (DRC) e é focado em produtividade para projetos profissionais de alta complexidade.</li>
+<li><strong>Desvantagens:</strong> Custo de licenciamento elevado; exige hardware potente para execução fluida; curva de aprendizado mais íngreme para dominar todas as funcionalidades avançadas.</li>
+<li><strong>Atenção:</strong> Através do programa <strong>Altium Student License</strong>, estudantes universitários podem solicitar uma <strong>licença educacional gratuita de seis meses (renovável)</strong>, garantindo acesso à mesma tecnologia utilizada pelas grandes empresas.</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="ferramentas-para-desenvolvimento-de-firmware" class="level3">
+<h3 data-anchor-id="ferramentas-para-desenvolvimento-de-firmware">Ferramentas para Desenvolvimento de Firmware</h3>
+<p>O desenvolvimento de firmware para sistemas embarcados exige o uso de ferramentas específicas que facilitam a criação, compilação e depuração do código. Em nossa disciplina, evitaremos o uso de IDEs proprietárias — como o STM32CubeIDE e até mesmo de plugins de configuração automática, como o novo STM32 VS Code Extension. Optamos por este caminho para garantir que você não dependa de geradores de código automáticos que escondem a complexidade do hardware. Ao configurar seu próprio ambiente, você compreende exatamente como o linker script, os arquivos de inicialização e os scripts de depuração funcionam, tornando seu conhecimento portável para qualquer outra arquitetura ou fabricante. A instalação e a configuração detalhada de cada um desses componentes, bem como a integração entre eles para formar um ambiente de desenvolvimento funcional, serão temas das nossas atividades práticas.</p>
+<section id="visual-studio-code" class="level4 content-card">
+<h4 data-anchor-id="visual-studio-code"><strong>Visual Studio Code</strong></h4>
+<div class="grid">
+<div class="g-col-12 g-col-md-3 text-center">
+<p><img src="shared/images/logo-vscode.png" class="img-fluid"></p>
+</div>
+<div class="g-col-12 g-col-md-9">
+<p>O Visual Studio Code (VS Code) consolidou-se como o editor preferencial para o desenvolvimento de firmware moderno, substituindo IDEs proprietárias que muitas vezes são pesadas e pouco flexíveis. Seu grande trunfo reside na arquitetura extensível: através de extensões como a Cortex-Debug e o suporte nativo à linguagem C/C++, ele se transforma em uma estação de trabalho completa que integra edição, compilação e depuração em um único fluxo.</p>
+<p>Diferente de ferramentas “clicou, funcionou”, o uso do VS Code em sistemas embarcados exige que o desenvolvedor compreenda a integração entre o editor, a toolchain (GCC) e o depurador (GDB/OpenOCD). Essa transparência é pedagógica e profissional, pois permite o monitoramento detalhado de registradores, memória e periféricos em tempo real. Além disso, a integração nativa com o Git e o terminal embutido para execução de Makefiles torna o desenvolvimento ágil, organizado e totalmente alinhado com as melhores práticas da engenharia de software atual.</p>
+</div>
+</div>
+</section>
+<section id="gnu-arm-toolchain" class="level4 content-card">
+<h4 data-anchor-id="gnu-arm-toolchain"><strong>GNU ARM Toolchain</strong></h4>
+<div class="grid">
+<div class="g-col-12 g-col-md-3 text-center">
+<p><img src="shared/images/gnu-arm-toolchain.png" class="img-fluid"></p>
+</div>
+<div class="g-col-12 g-col-md-9">
+<p>O <strong>GNU Arm Embedded Toolchain</strong> é o coração técnico do desenvolvimento profissional para microcontroladores ARM Cortex-M. Diferente de compiladores para desktop, ele é uma ferramenta de <strong>compilação cruzada</strong> (<em>cross-compilation</em>): ele roda em sua máquina <em>host</em>, mas gera código binário específico para o alvo ARM.</p>
+<p>Diferente de ferramentas como <strong>Keil MDK</strong> ou <strong>IAR Embedded Workbench</strong>, que são ecossistemas fechados e de alto custo, a utilização da Toolchain GNU oferece:</p>
+<ul>
+<li><p><strong>Independência de Fornecedor</strong>: Ferramentas proprietárias costumam criar dependências de arquivos de projeto e bibliotecas que “prendem” o desenvolvedor. Com o GCC, seu projeto é portável entre diferentes fabricantes (ST, NXP, TI).</p></li>
+<li><p><strong>Ausência de Restrições</strong>: Muitas IDEs comerciais limitam o tamanho do binário (ex: limite de 32KB na versão gratuita do Keil). A toolchain GNU é totalmente gratuita e ilimitada, permitindo projetos de qualquer escala.</p></li>
+<li><p><strong>Transparência Total</strong>: Enquanto as IDEs proprietárias utilizam “botões mágicos” para configurar o hardware, o uso do GCC nos obriga a manipular o Linker Script e os arquivos de Startup. Isso garante que você entenda exatamente onde cada byte do seu código está sendo alocado na memória Flash ou RAM.</p></li>
+<li><p><strong>Padrão de Indústria</strong>: O arm-none-eabi-gcc é o motor por trás da grande maioria das ferramentas modernas e servidores de Integração Contínua (CI/CD), sendo o requisito padrão para engenheiros de sistemas embarcados em nível global.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<!-- ### 🛠️ Hardware: A Linha STM32 Cortex-M4
+
+Utilizaremos microcontroladores da família **STM32**, baseados no núcleo **ARM Cortex-M4**. Esses dispositivos oferecem periféricos complexos (DMA, ADCs de alta velocidade, Timers avançados) essenciais para sistemas de tempo real.
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-4 .text-center}
+![**Nucleo-L432KC**: Nossa placa principal. Possui depurador ST-LINK integrado e é ideal para prototipagem em protoboard.](shared/images/nucleo-l432.png){width="100%"}
+:::
+
+::: {.g-col-12 .g-col-md-4 .text-center}
+![**Blackpill (F411)**: Kit de suporte de alto desempenho com excelente relação custo-benefício para projetos finais.](shared/images/blackpill.png){width="100%"}
+:::
+
+::: {.g-col-12 .g-col-md-4 .text-center}
+![**ST-LINK V2**: A interface de depuração SWD necessária para "enxergar" o que acontece dentro do chip em tempo real.](shared/images/stlink.png){width="100%"}
+:::
+
+::: -->
+<!-- ### 💻 Software: Toolchain Profissional
+
+Afastamos o uso de IDEs fechadas em favor de um ecossistema aberto, garantindo que o conhecimento seja portável para qualquer fabricante.
+
+* **Visual Studio Code (VS Code):** Nossa central de desenvolvimento altamente customizável.
+* **GNU Arm Embedded Toolchain:** Utilizamos o compilador `arm-none-eabi-gcc` para entender como o código C se torna binário de máquina.
+* **Automação (Make/CMake):** Gerenciaremos o processo de build através de scripts, eliminando a dependência de "botões mágicos" de compiladores proprietários.
+
+---
+
+### 🎓 Pré-requisitos e Preparação
+
+Para garantir o sucesso nesta disciplina, os seguintes requisitos são fundamentais:
+
+* **Pré-requisitos Formais:** Domínio de **Sistemas Digitais** e **Programação Procedimental (Linguagem C)**.
+* **Recomendações:** Conhecimentos em **Circuitos Elétricos** e **Eletrônica** facilitam as etapas de design de PCB. -->
+<p><br></p>
+<div class="text-center mt-5">
+<p><a href="pt-br/contents.html" class="btn btn-primary btn-lg btn-language" role="button">Iniciar Conteúdo da Disciplina</a></p>
+</div>
+</section>
+</section>
 </div>
 
 
@@ -317,19 +307,13 @@ ul.task-list li input[type="checkbox"] {
 
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
-    // Ensure there is a toggle, if there isn't float one in the top right
-    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
-      const a = window.document.createElement('a');
-      a.classList.add('top-right');
-      a.classList.add('quarto-color-scheme-toggle');
-      a.href = "";
-      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
-      const i = window.document.createElement("i");
-      i.classList.add('bi');
-      a.appendChild(i);
-      window.document.body.appendChild(a);
-    }
-    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     
@@ -346,12 +330,12 @@ ul.task-list li input[type="checkbox"] {
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copiada");
+      button.setAttribute("title", "Copied!");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copiada");
+        button.setAttribute("data-bs-title", "Copied!");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
@@ -394,7 +378,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/daniel-p-carvalho\.github\.io\/ufu-embedded-systems\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -725,14 +709,15 @@ ul.task-list li input[type="checkbox"] {
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">
-      &nbsp;
-    </div>   
+<p><strong>Sistemas Embarcados I</strong> - Faculdade de Engenharia de Controle e Automação (FEELT)</p>
+</div>   
     <div class="nav-footer-center">
-<p>© 2026 Faculdade de Engenharia de Controle e Automação - UFU</p>
+<p>Universidade Federal de Uberlândia</p>
 </div>
     <div class="nav-footer-right">
-      &nbsp;
-    </div>
+<p>© 2026 <a href="https://github.com/daniel-p-carvalho">Daniel P. Carvalho</a><br>
+<em>Licença Creative Commons BY-NC-SA</em></p>
+</div>
   </div>
 </footer>
 
