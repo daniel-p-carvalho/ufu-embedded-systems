@@ -135,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="introdução" class="level2 unnumbered content-wrapper">
 <h2 class="unnumbered" data-anchor-id="introdução">Introdução</h2>
 <p>Bem-vindo à disciplina de Sistemas Embarcados I. Este curso foi concebido para proporcionar uma experiência <strong>teórico-prática completa</strong>, garantindo que, ao final da jornada, você possua o <strong>domínio técnico e a autonomia necessários para projetar e desenvolver sistemas embarcados do início ao fim</strong>, integrando plenamente hardware e firmware.</p>
-<p>O grande diferencial desta disciplina está na abordagem sistêmica: você aprenderá a projetar o <strong>hardware</strong> — incluindo esquemas eletrônicos e o design de PCBs — em conjunto com o desenvolvimento do <strong>firmware</strong>, elaborando o código de baixo nível que dá vida ao sistema. Dessa forma, você compreenderá a essência dessas tecnologias, desde seus fundamentos físicos e lógicos até a implementação de soluções robustas em dispositivos de alta complexidade.</p>
+<p>O grande diferencial desta disciplina está na abordagem sistêmica: você aprenderá a projetar o <strong>hardware</strong> — incluindo esquemas eletrônicos e o design de PCBs — em conjunto com o desenvolvimento do <strong>firmware</strong>, elaborando o código de baixo nível que dá vida ao sistema. Desta forma, você compreenderá a essência dessas tecnologias, desde seus fundamentos físicos e lógicos até a implementação de soluções robustas em dispositivos de alta complexidade.</p>
 <div class="text-center">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -176,11 +176,10 @@ ul.task-list li input[type="checkbox"] {
 <section id="ecossistema-de-desenvolvimento" class="level2 content-wrapper">
 <h2 data-anchor-id="ecossistema-de-desenvolvimento">Ecossistema de Desenvolvimento</h2>
 <p>Para as atividades práticas, utilizaremos ferramentas profissionais que priorizam o controle total sobre o ciclo de desenvolvimento e a visibilidade direta do hardware. Essas ferramentas permitem que você tenha acesso detalhado a cada etapa do processo, desde o projeto inicial do circuito até a programação e depuração do firmware, proporcionando uma compreensão profunda dos mecanismos internos do sistema.</p>
-<p>Ao optar por ambientes de desenvolvimento avançados — como editores extensíveis, toolchains profissionais e depuradores de baixo nível — é possível analisar o funcionamento dos periféricos, monitorar o estado interno do processador e identificar possíveis gargalos de desempenho, tudo em tempo real diretamente no hardware real. Assim, você estará preparado para enfrentar situações reais de engenharia, ajustando parâmetros, otimizando recursos e implementando soluções robustas. O uso dessas ferramentas profissionais também favorece a colaboração em projetos complexos, facilitando a documentação do processo e a integração entre equipes multidisciplinares. Dessa maneira, garantimos que o aprendizado seja não apenas prático, mas também alinhado com as exigências do mercado e com os padrões de qualidade internacional.</p>
+<p>Ao optar por ambientes de desenvolvimento avançados — como editores extensíveis, toolchains profissionais e depuradores de baixo nível — é possível analisar o funcionamento dos periféricos, monitorar o estado interno do processador e identificar possíveis gargalos de desempenho, tudo em tempo real diretamente no hardware real.</p>
 <section id="ferramentas-para-projeto-de-hardware" class="level3">
 <h3 data-anchor-id="ferramentas-para-projeto-de-hardware">Ferramentas para Projeto de Hardware</h3>
-<p>O desenvolvimento de hardware moderno é indissociável das ferramentas <strong>EDA</strong> (<em>Electronic Design Automation</em>). Estes ecossistemas automatizam a transição entre o conceito teórico e a implementação física, sendo indispensáveis para projetar, simular e validar esquemas eletrônicos com rigor técnico. Através de recursos avançados — como a verificação de regras elétricas (<strong>ERC</strong>) e de layout (<strong>DRC</strong>), visualização 3D e exportação de arquivos Gerber — as ferramentas <strong>EDA</strong> garantem que o layout da <strong>PCB</strong> possua a precisão necessária para a fabricação industrial. O domínio destas ferramentas é o que permite transformar circuitos complexos em produtos funcionais e confiáveis, assegurando a integração perfeita entre o hardware e o firmware em projetos de sistemas embarcados.</p>
-<p>Para colocar esses conceitos em prática, poderemos utilizar ferramentas que abrangem desde o ecossistema open-source até ferramentas que atendem aos padrões mais elevados da indústria. O <strong>KiCad</strong> será nossa base para o aprendizado de design de <strong>PCBs</strong>, oferecendo uma plataforma robusta e sem restrições de licenciamento. Para projetos que exigem uma integração profunda entre a eletrônica e o design mecânico, exploraremos o <strong>Autodesk Fusion 360</strong>, enquanto o <strong>Altium Designer</strong> se apresenta como uma solução de ponta para roteamento avançado e fluxos de trabalho profissionais. Cada uma dessas ferramentas tem suas vantagens e desvantagens, e a escolha entre elas dependerá do contexto do projeto, dos requisitos técnicos e das preferências pessoais. O importante é que, independentemente da ferramenta escolhida, o foco estará sempre na compreensão profunda dos princípios de design de hardware e na capacidade de criar soluções eficientes e escaláveis para sistemas embarcados.</p>
+<p>O desenvolvimento de hardware moderno é indissociável das ferramentas <strong>EDA</strong> (<em>Electronic Design Automation</em>). Estes ecossistemas automatizam a transição entre o conceito teórico e a implementação física, sendo indispensáveis para projetar, simular e validar esquemas eletrônicos com rigor técnico.</p>
 <section id="kicad-eda" class="level4 content-card">
 <h4 data-anchor-id="kicad-eda"><strong>KiCad EDA</strong></h4>
 <div class="grid">
@@ -204,8 +203,8 @@ ul.task-list li input[type="checkbox"] {
 <div class="g-col-12 g-col-md-9">
 <ul>
 <li><strong>Vantagens:</strong> Integração nativa incomparável entre o design eletrônico (ECAD) e o design mecânico (MCAD). Excelente visualização 3D e facilidade para projetar gabinetes e caixas.</li>
-<li><strong>Desvantagens:</strong> Modelo de assinatura (licença gratuita limitada para estudantes); forte dependência de processamento em nuvem e conexão estável com a internet.</li>
-<li><strong>Atenção:</strong> Estudantes universitários podem acessar o <strong>Autodesk Fusion 360 Education License</strong>, que oferece uma licença gratuita de um ano (renovável) para uso acadêmico, garantindo acesso a todas as funcionalidades avançadas da plataforma.</li>
+<li><strong>Desvantagens:</strong> Modelo de assinatura e forte dependência de processamento em nuvem.</li>
+<li><strong>💡 Observação:</strong> A Autodesk oferece <strong>licenças gratuitas para estudantes e educadores</strong>, permitindo acesso completo às ferramentas profissionais durante todo o período acadêmico.</li>
 </ul>
 </div>
 </div>
@@ -219,8 +218,8 @@ ul.task-list li input[type="checkbox"] {
 <div class="g-col-12 g-col-md-9">
 <ul>
 <li><strong>Vantagens:</strong> O padrão ouro da indústria. Possui ferramentas de roteamento interativo extremamente poderosas, gerenciamento avançado de regras de design (DRC) e é focado em produtividade para projetos profissionais de alta complexidade.</li>
-<li><strong>Desvantagens:</strong> Custo de licenciamento elevado; exige hardware potente para execução fluida; curva de aprendizado mais íngreme para dominar todas as funcionalidades avançadas.</li>
-<li><strong>Atenção:</strong> Através do programa <strong>Altium Student License</strong>, estudantes universitários podem solicitar uma <strong>licença educacional gratuita de seis meses (renovável)</strong>, garantindo acesso à mesma tecnologia utilizada pelas grandes empresas.</li>
+<li><strong>Desvantagens:</strong> Custo de licenciamento elevado; exige hardware potente para execução fluida; curva de aprendizado mais íngreme.</li>
+<li><strong>💡 Observação:</strong> Através do programa <strong>Altium Student License</strong>, estudantes universitários podem solicitar uma <strong>licença educacional gratuita de seis meses (renovável)</strong>, garantindo acesso à mesma tecnologia utilizada pelas grandes empresas.</li>
 </ul>
 </div>
 </div>
@@ -228,72 +227,50 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="ferramentas-para-desenvolvimento-de-firmware" class="level3">
 <h3 data-anchor-id="ferramentas-para-desenvolvimento-de-firmware">Ferramentas para Desenvolvimento de Firmware</h3>
-<p>O desenvolvimento de firmware para sistemas embarcados exige o uso de ferramentas específicas que facilitam a criação, compilação e depuração do código. Em nossa disciplina, evitaremos o uso de IDEs proprietárias — como o STM32CubeIDE e até mesmo de plugins de configuração automática, como o novo STM32 VS Code Extension. Optamos por este caminho para garantir que você não dependa de geradores de código automáticos que escondem a complexidade do hardware. Ao configurar seu próprio ambiente, você compreende exatamente como o linker script, os arquivos de inicialização e os scripts de depuração funcionam, tornando seu conhecimento portável para qualquer outra arquitetura ou fabricante. A instalação e a configuração detalhada de cada um desses componentes, bem como a integração entre eles para formar um ambiente de desenvolvimento funcional, serão temas das nossas atividades práticas.</p>
-<section id="visual-studio-code" class="level4 content-card">
-<h4 data-anchor-id="visual-studio-code"><strong>Visual Studio Code</strong></h4>
+<p>O desenvolvimento de firmware para sistemas embarcados exige o uso de ferramentas específicas que facilitam a criação, compilação e depuração do código. Em nossa disciplina, afastamos o uso de IDEs proprietárias — como o <strong>STM32CubeIDE</strong> — e até mesmo de plugins de configuração automática, como o novo <strong>STM32 VS Code Extension</strong>.</p>
+<p><strong>A instalação e a configuração manual destes componentes serão temas centrais das nossas atividades práticas.</strong> Optamos por este caminho para garantir que você não dependa de geradores de código automáticos que escondem a complexidade do hardware. Ao configurar seu próprio ambiente, você compreende exatamente como o linker script, os arquivos de inicialização e os scripts de depuração funcionam, tornando seu conhecimento portável para qualquer outra arquitetura ou fabricante.</p>
+<section id="compilador-e-toolchain" class="level4 content-card">
+<h4 data-anchor-id="compilador-e-toolchain"><strong>Compilador e Toolchain</strong></h4>
+<div class="grid">
+<div class="g-col-12 g-col-md-3 text-center">
+<p><img src="shared/images/logo-gcc.png" class="img-fluid"></p>
+</div>
+<div class="g-col-12 g-col-md-9">
+<ul>
+<li><strong>GNU Arm Embedded Toolchain (<code>arm-none-eabi-gcc</code>):</strong> O compilador padrão da indústria, utilizado por sua robustez e compatibilidade total com a arquitetura ARM Cortex-M. Ele roda na sua máquina <em>host</em> mas gera binários puros (<em>cross-compilation</em>) para o alvo.</li>
+<li><strong>💡 Observação:</strong> Diferente de ferramentas como Keil ou IAR, ela é totalmente gratuita, livre de restrições de tamanho de código (limitadas a 32KB em licenças comerciais grátis) e nos força a entender intimamente a organização de memória RAM e Flash.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="automação-de-build" class="level4 content-card">
+<h4 data-anchor-id="automação-de-build"><strong>Automação de Build</strong></h4>
+<div class="grid">
+<div class="g-col-12 g-col-md-3 text-center">
+<p><img src="shared/images/logo-make.png" class="img-fluid"></p>
+</div>
+<div class="g-col-12 g-col-md-9">
+<ul>
+<li><strong>GNU Make:</strong> Em vez de depender do gerador de projetos automáticos de IDEs comerciais que criam árvores de dependência pesadas e “caixas pretas”, utilizaremos scripts de automação.</li>
+<li><strong>💡 Observação:</strong> No curso, você aprenderá a escrever seus próprios <em>Makefiles</em>, obtendo controle minucioso e total sobre o processo de compilação, linkagem e organização física do código do seu hardware.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="o-vs-code-como-estação-de-trabalho" class="level4 content-card">
+<h4 data-anchor-id="o-vs-code-como-estação-de-trabalho"><strong>O VS Code como Estação de Trabalho</strong></h4>
 <div class="grid">
 <div class="g-col-12 g-col-md-3 text-center">
 <p><img src="shared/images/logo-vscode.png" class="img-fluid"></p>
 </div>
 <div class="g-col-12 g-col-md-9">
-<p>O Visual Studio Code (VS Code) consolidou-se como o editor preferencial para o desenvolvimento de firmware moderno, substituindo IDEs proprietárias que muitas vezes são pesadas e pouco flexíveis. Seu grande trunfo reside na arquitetura extensível: através de extensões como a Cortex-Debug e o suporte nativo à linguagem C/C++, ele se transforma em uma estação de trabalho completa que integra edição, compilação e depuração em um único fluxo.</p>
-<p>Diferente de ferramentas “clicou, funcionou”, o uso do VS Code em sistemas embarcados exige que o desenvolvedor compreenda a integração entre o editor, a toolchain (GCC) e o depurador (GDB/OpenOCD). Essa transparência é pedagógica e profissional, pois permite o monitoramento detalhado de registradores, memória e periféricos em tempo real. Além disso, a integração nativa com o Git e o terminal embutido para execução de Makefiles torna o desenvolvimento ágil, organizado e totalmente alinhado com as melhores práticas da engenharia de software atual.</p>
-</div>
-</div>
-</section>
-<section id="gnu-arm-toolchain" class="level4 content-card">
-<h4 data-anchor-id="gnu-arm-toolchain"><strong>GNU ARM Toolchain</strong></h4>
-<div class="grid">
-<div class="g-col-12 g-col-md-3 text-center">
-<p><img src="shared/images/gnu-arm-toolchain.png" class="img-fluid"></p>
-</div>
-<div class="g-col-12 g-col-md-9">
-<p>O <strong>GNU Arm Embedded Toolchain</strong> é o coração técnico do desenvolvimento profissional para microcontroladores ARM Cortex-M. Diferente de compiladores para desktop, ele é uma ferramenta de <strong>compilação cruzada</strong> (<em>cross-compilation</em>): ele roda em sua máquina <em>host</em>, mas gera código binário específico para o alvo ARM.</p>
-<p>Diferente de ferramentas como <strong>Keil MDK</strong> ou <strong>IAR Embedded Workbench</strong>, que são ecossistemas fechados e de alto custo, a utilização da Toolchain GNU oferece:</p>
 <ul>
-<li><p><strong>Independência de Fornecedor</strong>: Ferramentas proprietárias costumam criar dependências de arquivos de projeto e bibliotecas que “prendem” o desenvolvedor. Com o GCC, seu projeto é portável entre diferentes fabricantes (ST, NXP, TI).</p></li>
-<li><p><strong>Ausência de Restrições</strong>: Muitas IDEs comerciais limitam o tamanho do binário (ex: limite de 32KB na versão gratuita do Keil). A toolchain GNU é totalmente gratuita e ilimitada, permitindo projetos de qualquer escala.</p></li>
-<li><p><strong>Transparência Total</strong>: Enquanto as IDEs proprietárias utilizam “botões mágicos” para configurar o hardware, o uso do GCC nos obriga a manipular o Linker Script e os arquivos de Startup. Isso garante que você entenda exatamente onde cada byte do seu código está sendo alocado na memória Flash ou RAM.</p></li>
-<li><p><strong>Padrão de Indústria</strong>: O arm-none-eabi-gcc é o motor por trás da grande maioria das ferramentas modernas e servidores de Integração Contínua (CI/CD), sendo o requisito padrão para engenheiros de sistemas embarcados em nível global.</p></li>
+<li><strong>Visual Studio Code:</strong> O editor moderno e leve preferencial do mercado de firmware atual. Através de uma arquitetura extensível e aberta (utilizando o plugin <em>Cortex-Debug</em>), ele integra edição de código, controle de versão nativo (Git) e terminais dedicados. 59]</li>
+<li><strong>💡 Observação:</strong> Configuraremos o VS Code para integrar diretamente o compilador GNU e o depurador em nível de hardware (OpenOCD/GDB), permitindo uma visibilidade transparente de registradores, memória e periféricos em tempo real. 58]</li>
 </ul>
 </div>
 </div>
 </section>
-<!-- ### 🛠️ Hardware: A Linha STM32 Cortex-M4
-
-Utilizaremos microcontroladores da família **STM32**, baseados no núcleo **ARM Cortex-M4**. Esses dispositivos oferecem periféricos complexos (DMA, ADCs de alta velocidade, Timers avançados) essenciais para sistemas de tempo real.
-
-::: {.grid}
-
-::: {.g-col-12 .g-col-md-4 .text-center}
-![**Nucleo-L432KC**: Nossa placa principal. Possui depurador ST-LINK integrado e é ideal para prototipagem em protoboard.](shared/images/nucleo-l432.png){width="100%"}
-:::
-
-::: {.g-col-12 .g-col-md-4 .text-center}
-![**Blackpill (F411)**: Kit de suporte de alto desempenho com excelente relação custo-benefício para projetos finais.](shared/images/blackpill.png){width="100%"}
-:::
-
-::: {.g-col-12 .g-col-md-4 .text-center}
-![**ST-LINK V2**: A interface de depuração SWD necessária para "enxergar" o que acontece dentro do chip em tempo real.](shared/images/stlink.png){width="100%"}
-:::
-
-::: -->
-<!-- ### 💻 Software: Toolchain Profissional
-
-Afastamos o uso de IDEs fechadas em favor de um ecossistema aberto, garantindo que o conhecimento seja portável para qualquer fabricante.
-
-* **Visual Studio Code (VS Code):** Nossa central de desenvolvimento altamente customizável.
-* **GNU Arm Embedded Toolchain:** Utilizamos o compilador `arm-none-eabi-gcc` para entender como o código C se torna binário de máquina.
-* **Automação (Make/CMake):** Gerenciaremos o processo de build através de scripts, eliminando a dependência de "botões mágicos" de compiladores proprietários.
-
----
-
-### 🎓 Pré-requisitos e Preparação
-
-Para garantir o sucesso nesta disciplina, os seguintes requisitos são fundamentais:
-
-* **Pré-requisitos Formais:** Domínio de **Sistemas Digitais** e **Programação Procedimental (Linguagem C)**.
-* **Recomendações:** Conhecimentos em **Circuitos Elétricos** e **Eletrônica** facilitam as etapas de design de PCB. -->
 <p><br></p>
 <div class="text-center mt-5">
 <p><a href="pt-br/contents.html" class="btn btn-primary btn-lg btn-language" role="button">Iniciar Conteúdo da Disciplina</a></p>
