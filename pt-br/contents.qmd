@@ -1,0 +1,44 @@
+---
+title: "Sumário do Curso"
+subtitle: "Cronograma e Resumo das Atividades — Sistemas Embarcados I"
+page-layout: full
+---
+
+Bem-vindo ao repositório de conteúdos da disciplina. Abaixo, você encontrará a divisão semanal, os objetivos de aprendizagem e os links para os materiais teóricos e práticos.
+
+---
+
+## 📅 Primeiro Bimestre: Infraestrutura e Bare-metal
+
+### [Semana 01: Inicialização de Hardware e Boot Process](semana-01/intro.qmd)
+Nesta semana, exploramos o que acontece desde o momento em que o microcontrolador é energizado até a execução da função `main()`.
+
+* **Teoria:** Arquitetura Cortex-M4, Tabela de Vetores de Interrupção e o papel do Linker Script.
+* **Prática:** Implementação do arquivo `startup.c`, inicialização da memória SRAM (seções `.data` e `.bss`) e mapeamento do Stack Pointer.
+* **Assignment:** Completar a tabela de vetores para o STM32L432 e migrar a definição da Stack para o Linker Script.
+
+### Semana 02: GPIO e Registradores
+Estudo da interface fundamental entre o processador e o mundo físico.
+
+* **Teoria:** Barramentos AHB/APB, estrutura interna de um GPIO e Reset and Clock Control (RCC).
+* **Prática:** Manipulação de registros via ponteiros em C para acionamento de LEDs e leitura de botões sem dependência de bibliotecas HAL.
+
+---
+
+## 📅 Segundo Bimestre: Periféricos e Sistemas de Tempo Real
+
+### Semana 03: Interrupções e NVIC
+Como o hardware responde a eventos externos de forma assíncrona.
+
+* **Teoria:** Nested Vectored Interrupt Controller (NVIC), prioridades e preempção.
+* **Prática:** Configuração de interrupções externas (EXTI) e debounce de botões via hardware/software.
+
+### Semana 04: Timers e PWM
+Controle preciso de tempo e modulação de largura de pulso.
+
+* **Teoria:** Timers de 16/32 bits, Prescalers e Auto-reload registers.
+* **Prática:** Geração de sinais PWM para controle de brilho ou servomotores.
+
+---
+
+> **Nota para os estudantes:** Este cronograma pode sofrer pequenos ajustes ao longo do semestre para melhor se adequar ao ritmo da turma. Fiquem atentos aos commits no repositório!

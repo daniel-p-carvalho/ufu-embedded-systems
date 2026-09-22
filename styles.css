@@ -1,224 +1,220 @@
 /* ==========================================================================
-   1. CORE IDENTITY & VARIABLES
+   1. CORE IDENTITY & LAYOUT SETUP
    ========================================================================== */
 :root {
   --ufu-blue: #003366;           /* UFU official navy blue */
-  --ufu-blue-light: #004a8f;     /* Slightly lighter blue for title banners */
   --ufu-gold: #FFCC00;           /* UFU official gold */
-  --light-grey: #f8f9fa;         /* Background for landing page & light mode */
-  
-  /* Prevent smooth scroll jumps during browser reload/render cycles */
-  scroll-behavior: auto !important; 
+  --light-grey: #f8f9fa;         /* Background for landing page */
 }
 
-/* Global scroll padding to prevent fixed navbar from covering anchors */
-html {
-  scroll-padding-top: 150px; 
-}
-
-body {
-  text-align: justify;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--light-grey);
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
 }
 
-/* ==========================================================================
-   2. DARK MODE COMPATIBILITY
-   ========================================================================== */
-body.quarto-dark {
-  --light-grey: #1a1a1a;
-  --ufu-text-dark: #e0e0e0;
-}
-
-body.quarto-dark .navbar {
-  background-color: rgba(30, 30, 30, 0.95) !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-}
-
-body.quarto-dark .navbar-brand::after {
-  color: var(--ufu-gold) !important;
-}
-
-body.quarto-dark .nav-link {
-  color: #ffffff !important;
-}
-
-body.quarto-dark .btn-language {
-  border-color: var(--ufu-gold);
-  color: var(--ufu-gold);
-}
-
-body.quarto-dark .btn-language:hover {
-  background-color: var(--ufu-gold);
-  color: #000;
-  transform: translateY(-3px);
+body {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--light-grey);
+  /* Espaço para a Navbar fixa e respiro para o Footer fixo */
+  padding-top: 70px !important;
+  padding-bottom: 80px !important; 
 }
 
 /* ==========================================================================
-   3. NAVIGATION BAR (NAVBAR)
+   2. CUSTOM INSTITUTIONAL NAVBAR
    ========================================================================== */
 .navbar {
-  position: fixed !important; 
-  top: 0px !important;
+  position: fixed !important;
+  top: 0;
   width: 100%;
-  left: 0;
+  height: 70px;
   z-index: 1030;
-  min-height: 100px;
-  backdrop-filter: blur(10px);
-  background-color: rgba(0, 51, 102, 0.95) !important; 
-  border-bottom: 4px solid var(--ufu-gold);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: var(--ufu-blue) !important;
+  border-bottom: 4px solid var(--ufu-gold) !important;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.navbar-brand {
-  display: flex !important;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  text-decoration: none !important;
-  padding-left: 15px;
+.navbar-title, 
+.quarto-color-scheme-toggle {
+  display: none !important;
+}
+
+.navbar-brand-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-decoration: none;
 }
 
 .navbar-brand img {
-  height: 80px !important;
-  width: auto !important;
-  display: block !important;
-  margin-bottom: 8px !important; 
-  filter: none !important;
-  image-rendering: -webkit-optimize-contrast;
+  height: 50px !important;
+  width: auto;
 }
 
-.navbar-brand::after {
-  content: "UNIVERSIDADE FEDERAL DE UBERLÂNDIA";
-  font-size: 0.65rem;
-  color: var(--light-grey);
-  font-weight: bold;
-  margin-top: -2px;
+.navbar-brand-container::after {
+  content: "Sistemas Embarcados I \A Faculdade de Engenharia de Controle e Automação";
+  white-space: pre; 
+  color: white;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.1rem;      
+  font-weight: 600;       
+  line-height: 1.1;       
+  letter-spacing: 0.3px;
+}
+
+/* ==========================================================================
+   3. HIDING REDUNDANT ELEMENTS
+   ========================================================================== */
+#title-block-header, 
+.quarto-title-block,
+.quarto-title-banner {
+  display: none !important;
+}
+
+/* ==========================================================================
+   4. CONTENT BOX & TEXT STYLING
+   ========================================================================== */
+#quarto-content {
+  flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.landing-container {
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; 
+  align-items: center;
+  padding: 60px 20px;
+}
+
+.content-wrapper {
+  max-width: 900px;
+  width: 92%;
+  background-color: #ffffff;
+  padding: 50px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  color: #333;
+}
+
+.content-wrapper h1 {
+  color: var(--ufu-blue);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  border-bottom: 3px solid var(--ufu-gold);
+  display: inline-block;
+  width: 100%;
+  padding-bottom: 15px;
+}
+
+.content-wrapper p {
+  text-align: justify;
+  line-height: 1.7;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.content-wrapper strong {
+  color: var(--ufu-blue);
+}
+
+/* ==========================================================================
+   5. FIXED FOOTER
+   ========================================================================== */
+footer {
+  position: fixed !important;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1030;
+  background-color: var(--ufu-blue) !important;
+  color: white !important;
+  border-top: 4px solid var(--ufu-gold) !important;
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+}
+
+.nav-footer {
+  background-color: transparent !important; 
+  border-top: none !important; 
+  padding: 0.8rem 0 !important;
+}
+
+.nav-footer-left, 
+.nav-footer-center, 
+.nav-footer-right,
+.nav-footer-left *, 
+.nav-footer-center *, 
+.nav-footer-right * {
+  color: white !important;
+}
+
+.nav-footer a {
+  color: var(--ufu-gold) !important;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   6. UI ELEMENTS
+   ========================================================================== */
+.btn-language {
+  padding: 15px 40px !important;
+  font-weight: 600 !important;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
-.navbar-nav .nav-link {
-  color: #ffffff !important;
-  font-weight: 500;
-}
-
-.navbar-nav .nav-link:hover {
-  color: var(--ufu-gold) !important;
-}
-
 /* ==========================================================================
-   4. INTERNAL PAGES: TITLE BANNERS
+   7. REUSABLE CONTENT CARDS (GENERIC CONTAINER)
    ========================================================================== */
-.quarto-title-block .quarto-title-banner {
-  background-color: var(--ufu-blue) !important;
-  padding-top: 130px !important;
-  padding-bottom: 10px !important;
-  text-align: center;
+.content-card {
+  background-color: #ffffff;
+  border: 1px solid #e1e4e8;
+  border-radius: 12px;
+  padding: 30px;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  overflow: hidden;
 }
 
-/* Center and color the title/subtitle inside the banner */
-.quarto-title-block .quarto-title .title,
-.quarto-title-block .quarto-title .subtitle {
-  color: white !important;
-  text-align: center;
+.content-card:hover {
+  border-color: var(--ufu-blue);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
 }
 
-/* ==========================================================================
-   5. LANDING PAGE (ROOT INDEX.QMD)
-   ========================================================================== */
-.column-screen.text-center {
-  padding-top: 50px !important; 
-  padding-bottom: 50px !important;
-  margin-bottom: 0 !important;
-  border-bottom: none !important;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.content-card h4 {
+  margin-top: 0;
+  color: var(--ufu-blue);
+  font-weight: 700;
+  border-bottom: 2px solid var(--light-grey);
+  padding-bottom: 12px;
+  margin-bottom: 25px;
 }
 
-#landing-title {
-  margin-top: 0 !important; 
-  margin-bottom: 0.5rem;
-  line-height: 1.2;
+/* Regra para uniformizar a altura dos logos */
+.content-card img {
+  height: 60px;            /* Altura fixa para todos os logos */
+  width: auto;             /* Largura ajusta-se proporcionalmente */
+  max-width: 100%;         /* Impede que saia da coluna em ecrãs pequenos */
+  object-fit: contain;     /* Mantém a proporção sem distorcer */
+  display: block;
+  margin: 0 auto 15px auto; /* Centraliza e dá margem inferior */
 }
 
-.btn-language {
-  min-width: 220px;
-  margin: 12px;
-  padding: 18px 30px;
-  font-weight: bold;
-  border-radius: 8px;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.btn-language:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  background-color: var(--ufu-blue);
-  color: white;
-}
-
-/* ==========================================================================
-   6. FOOTER STRATEGY (CONSOLIDATED)
-   ========================================================================== */
-footer {
-  background-color: var(--ufu-blue) !important;
-  color: white !important;
-  padding: 1.5rem 0;
-  border-top: 4px solid var(--ufu-gold); /* The single gold line */
-  margin-top: 0 !important;
-  width: 100%;
-}
-
-/* Ensure footer text and icons are properly colored */
-footer p, footer span, footer .nav-footer-left, footer .nav-footer-right {
-  color: white !important;
-}
-
-footer a {
-  color: var(--ufu-gold) !important;
-  text-decoration: none;
-}
-
-footer a:hover {
-  text-decoration: underline;
-}
-
-/* Dark mode footer override */
-body.quarto-dark footer, 
-body.quarto-dark .nav-footer {
-  background-color: #121212 !important;
-  border-top: 4px solid var(--ufu-blue);
-}
-
-/* ==========================================================================
-   7. MISCELLANEOUS & UTILITIES
-   ========================================================================== */
-#quarto-content {
-  padding-top: 0px; 
-  padding-bottom: 0 !important;
-  margin-bottom: 0 !important;
-  min-height: auto !important;
-}
-
-/* Collapses any residual gap between the landing page and the footer */
-.column-screen.text-center {
-  margin-bottom: 0 !important;
-  border-bottom: none !important;
-}
-
-:target {
-  scroll-margin-top: 160px; 
-}
-
-code {
-  color: #d63384;
-  background-color: rgba(214, 51, 132, 0.05);
-  padding: 0.2rem 0.4rem;
-  border-radius: 4px;
+.content-card ul li:last-child {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #eee;
+    color: #555;
+    font-size: 0.95rem;
 }

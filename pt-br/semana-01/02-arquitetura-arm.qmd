@@ -1,0 +1,43 @@
+---
+title: "Sistemas Embarcados e Arquitetura ARM"
+subtitle: "Semana 01: Fundamentos e Contexto Histórico"
+---
+
+## A Arquitetura ARM
+
+### Introdução
+A ARM é uma empresa britânica reconhecida mundialmente por desenvolver arquiteturas e tecnologias de processadores altamente eficientes e de baixo consumo energético. Fundada em 1990, a ARM não fabrica chips diretamente, mas licencia suas arquiteturas para diversos fabricantes (como STMicroelectronics, NXP, TI), que as utilizam em smartphones, tablets e microcontroladores.
+
+### Evolução Histórica
+As origens remontam ao **ARMv1** (1985), focado em computadores pessoais da Acorn. Ao longo das décadas, a arquitetura evoluiu significativamente:
+
+* **ARMv4T:** Introduziu o conjunto de instruções **Thumb** (16 bits), permitindo maior densidade de código e economia de memória — um marco para sistemas embarcados.
+* **ARMv6:** Trouxe melhorias em sistemas multimídia (SIMD) e suporte a múltiplos núcleos. É a base de modelos famosos como o primeiro Raspberry Pi.
+* **ARMv7:** A arquitetura que consolidou o domínio global da ARM ao introduzir a divisão por **Perfis (Profiles)**.
+
+### Os Perfis da Arquitetura ARMv7
+A partir da ARMv7, a ARM organizou suas CPUs em três perfis distintos, conhecidos pela sigla **ARM**:
+
+| Perfil | Nome | Foco Principal | Exemplo de Uso |
+|:---:|:---:|:---|:---|
+| **A** | **Application** | Alto desempenho, suporte a SO complexos (Linux/Android). | Smartphones, Tablets. |
+| **R** | **Real-time** | Previsibilidade e baixíssima latência. | Sistemas de freio ABS, HDs. |
+| **M** | **Microcontroller** | Baixo consumo, determinismo e baixo custo. | **Nucleo-L432KC (Nosso foco)**. |
+
+::: {.callout-important}
+### Por que usamos o M-Profile (Cortex-M)?
+O perfil **M** foi projetado para substituir os antigos microcontroladores de 8 e 16 bits. Ele utiliza exclusivamente o conjunto de instruções **Thumb-2**, que mistura instruções de 16 e 32 bits para oferecer o melhor dos dois mundos: a eficiência do Thumb e o desempenho do ARM32.
+:::
+
+### Instruções Thumb vs. Thumb-2
+* **Thumb (ARMv4T):** Instruções fixas de 16 bits. Reduz o uso de memória em até 35% comparado ao modo ARM de 32 bits, mas possui limitações de performance.
+* **Thumb-2 (ARMv6-T2 / ARMv7):** Permite misturar instruções de 16 e 32 bits sem mudar o "estado" do processador. Isso elimina a sobrecarga (overhead) de troca de contexto e oferece quase o mesmo desempenho do código de 32 bits puro com uma densidade muito maior.
+
+---
+
+## Próximos Passos
+Agora que entendemos a arquitetura do processador que estamos utilizando, vamos avançar para o **Processo de Boot** e entender como o silício "ganha vida" ao ser energizado.
+
+::: {.callout-note}
+Na próxima seção, estudaremos o arquivo `startup.c` e a Tabela de Vetores de Interrupção.
+:::

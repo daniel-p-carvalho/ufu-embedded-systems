@@ -1,0 +1,28 @@
+---
+title: "O que são Sistemas Embarcados?"
+subtitle: "Semana 01: Introdução aos Conceitos Fundamentais"
+---
+
+## Definição
+
+Um **Sistema Embarcado** (ou *Embedded System*) é um sistema computacional microprocessado projetado para realizar uma função dedicada ou específica dentro de um sistema maior. 
+
+Diferente de um computador pessoal (PC), que é de propósito geral, um sistema embarcado é otimizado para tarefas fixas.
+
+
+
+## Características Principais
+
+* **Custo:** Geralmente projetados para produção em larga escala com componentes de baixo custo.
+* **Eficiência Energética:** Muitas vezes operando por baterias ou com restrições de dissipação térmica.
+* **Determinismo:** Devem responder em tempo real a eventos externos dentro de prazos estritos.
+* **Robustez:** Operam em ambientes variados e devem possuir alta confiabilidade.
+
+## Onde eles estão?
+
+Eles estão presentes em quase toda a tecnologia moderna:
+
+* **Saúde:** Marcapassos, monitores cardíacos.
+* **Automotivo:** Injeção eletrônica, sistemas de freio ABS.
+* **Doméstico:** Micro-ondas, máquinas de lavar, smart TVs.
+* **Industrial:** Controladores lógicos programáveis (PLCs), sensores inteligentes.
