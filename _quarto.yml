@@ -41,5 +41,6 @@ format:
     theme: cosmo
     css: styles.css
     toc: true
+    toc-expand: true
     number-sections: true
     dark-mode: false

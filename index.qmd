@@ -23,17 +23,36 @@ Frameworks de abstração como o **Arduino**, a **HAL (Hardware Abstraction Laye
 
 Essa metodologia permite vivenciar os desafios reais da engenharia, como a gestão otimizada de recursos limitados, a depuração em nível de hardware e a criação de interfaces que unem eficiência e manutenibilidade. Ao escalar cada camada da arquitetura, você compreenderá a fundamentação técnica por trás de cada decisão de design, transformando a complexidade em um processo de desenvolvimento lógico, estruturado e profissional.
 
-## Por que ARM Cortex-M
+## Arquitetura e plataformas para sistemas embarcados
 
-O curso é fundamentado na arquitetura **ARM Cortex-M**, o padrão *de facto* na indústria global de tecnologia. A escolha desta plataforma não é apenas uma decisão pedagógica, mas um alinhamento estratégico com as demandas reais do mercado de engenharia:
+É bem provável que você já tenha alguma experiência com **Arduino** ou **ESP32** — são, hoje, a porta de entrada mais comum para eletrônica e programação de microcontroladores, e por bons motivos: são baratos, acessíveis e têm um ecossistema gigante de bibliotecas prontas. Mas eles são só dois pontos em um universo bem mais amplo de arquiteturas disputando esse espaço:
+
+* **Microcontroladores de 8 bits** — a família **AVR** (o chip por trás do Arduino Uno clássico) e o **PIC** da Microchip. Simples, baratos, com décadas de mercado consolidado, mas limitados em desempenho, memória e periféricos para aplicações mais exigentes.
+* **RISC-V** — uma arquitetura de conjunto de instruções *aberta* (sem custo de licenciamento), crescendo rápido na indústria, mas ainda com ecossistema de ferramentas e depuração menos maduro que os concorrentes estabelecidos.
+* **Xtensa** — o núcleo proprietário da Espressif, usado no **ESP32**. Seu grande diferencial é a conectividade Wi-Fi/BLE já integrada ao chip, o que o tornou o queridinho de projetos de IoT.
+* **ARM Cortex-M** — a linha de núcleos ARM desenhada especificamente para microcontroladores (diferente do Cortex-A, que equipa smartphones e computadores rodando sistemas operacionais completos).
+
+::: {.text-center}
+![Panorama de plataformas para sistemas embarcados: posicionamento ilustrativo entre controle de baixo nível e ecossistema pronto/facilidade de uso.](shared/images/panorama-plataformas-embarcados.png){width="85%" fig-align="center"}
+:::
+
+### A arquitetura ARM Cortex-M
+
+A **ARM** não é um chip — é uma *arquitetura de processador*: um conjunto de regras de design que a empresa britânica ARM Holdings licencia para fabricantes de semicondutores, que então produzem seus próprios chips seguindo essas regras. É por isso que STMicroelectronics, NXP, Texas Instruments e Renesas competem entre si vendendo chips completamente diferentes, mas todos com núcleo ARM por dentro. Dentro da família ARM, o **Cortex-M** é a linha voltada a microcontroladores: chips pequenos, de baixo consumo, que rodam sem sistema operacional e controlam diretamente o hardware. Um **STM32**, por exemplo — a família de chips que utilizaremos no curso — é um microcontrolador da ST construído sobre um núcleo Cortex-M.
+
+::: {.text-center}
+![Um único conjunto de regras, dezenas de fabricantes diferentes: a ARM licencia sua arquitetura para diversos fabricantes de semicondutores.](shared/images/licenciamento-arm.png){width="85%" fig-align="center"}
+:::
+
+Este curso é fundamentado nessa arquitetura, o padrão *de facto* na indústria global de tecnologia. A escolha não é apenas uma decisão pedagógica, mas um alinhamento estratégico com as demandas reais do mercado de engenharia:
 
 * **Liderança Absoluta de Mercado:** Com um ecossistema que movimenta mais de **30 bilhões de chips anualmente**, a arquitetura ARM sustenta cerca de **90% dos dispositivos móveis do mundo** e é a espinha dorsal da eletrônica automotiva e industrial moderna. Estudar ARM é aprender a tecnologia que move o planeta.
 
-* **Controle Profissional vs. Prototipagem (ARM vs. Arduino):** Enquanto plataformas como o Arduino (AVR) são excelentes portas de entrada para o hobby, o ARM Cortex-M oferece os recursos exigidos em produtos comerciais de alta performance. Aqui, exploramos o controle total sobre o hardware através do acesso direto a **registradores, DMA e gerenciamento avançado de energia**, competências essenciais para o desenvolvimento de produtos otimizados e escaláveis.
+* **Controle Profissional vs. Prototipagem (ARM vs. Arduino/AVR):** o Arduino é uma excelente porta de entrada para o hobby, mas o ARM Cortex-M oferece os recursos exigidos em produtos comerciais de alta performance. Aqui, exploramos o controle total sobre o hardware através do acesso direto a **registradores, DMA e gerenciamento avançado de energia**, competências essenciais para o desenvolvimento de produtos otimizados e escaláveis — e que o Arduino, por design, esconde do programador.
 
-* **Determinismo e Confiabilidade (ARM vs. ESP32):** Embora o ESP32 seja uma ferramenta poderosa para IoT, a linha ARM (como os STM32) oferece um ecossistema de **depuração (Debug) profissional via SWD/JTAG** incomparável. Isso permite ao engenheiro analisar o ciclo de instrução e garantir o determinismo temporal em sistemas críticos, onde falhas de milissegundos não são uma opção.
+* **Determinismo e Confiabilidade (ARM vs. ESP32):** o ESP32 é uma ferramenta poderosa para IoT, mas a linha ARM (como os STM32) oferece um ecossistema de **depuração (Debug) profissional via SWD/JTAG** incomparável. Isso permite ao engenheiro analisar o ciclo de instrução e garantir o determinismo temporal em sistemas críticos, onde falhas de milissegundos não são uma opção — algo que a pilha de conectividade do ESP32 não foi projetada para priorizar.
 
-* **Versatilidade e Independência de Fabricante:** Dominar o conjunto de instruções e a arquitetura ARM permite que transite livremente entre os maiores fabricantes de semicondutores do mundo (**STMicroelectronics, NXP, Texas Instruments, Renesas**). Você não aprende a programar um chip específico, mas sim a arquitetura que define o padrão global da engenharia de sistemas embarcados.
+* **Versatilidade e Independência de Fabricante:** dominar o conjunto de instruções e a arquitetura ARM permite que você transite livremente entre os maiores fabricantes de semicondutores do mundo (**STMicroelectronics, NXP, Texas Instruments, Renesas**). Você não aprende a programar um chip específico, mas sim a arquitetura que define o padrão global da engenharia de sistemas embarcados — logo, tudo o que aprender aqui permanece válido mesmo se, amanhã, seu empregador utilizar outro fabricante.
 
 ::: {.text-center}
 ![O Ecossistema ARM Cortex-M: Uma arquitetura unificada conectando dispositivos móveis, automação industrial (CLP/Robótica), sistemas automotivos (ECU) e Internet das Coisas (IoT).](shared/images/ecossistema-arm.png){width="70%" fig-align="center"}
