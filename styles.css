@@ -111,7 +111,19 @@ body.quarto-dark .nav-footer {
 }
 
 /* ==========================================================================
-   7. MISCELLANEOUS
+   7. TABLES (cronograma, avaliação, etc.)
+   ========================================================================== */
+.table thead th {
+  background-color: rgba(0, 51, 102, 0.06);
+  border-bottom: 2px solid var(--ufu-blue);
+}
+
+body.quarto-dark .table thead th {
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* ==========================================================================
+   8. MISCELLANEOUS
    ========================================================================== */
 code {
   color: #d63384;

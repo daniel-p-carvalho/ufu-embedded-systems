@@ -1,0 +1,66 @@
+---
+title: "Ambiente e Ferramentas de Desenvolvimento"
+---
+
+# Ambiente e Ferramentas de Desenvolvimento
+
+Antes de iniciar as atividades práticas deste módulo, é necessário configurar o ambiente de desenvolvimento que será utilizado ao longo de **todo o curso**:
+
+* **Windows Subsystem for Linux 2 (WSL2)** — ambiente Linux para compilação cruzada;
+* **GNU Arm Embedded Toolchain** (`arm-none-eabi-gcc`) — compilador cruzado para a arquitetura ARM Cortex-M;
+* **GNU Make** — automação do processo de compilação;
+* **OpenOCD** — depurador *on-chip* para gravação e depuração via SWD/JTAG;
+* **Git** — controle de versão, utilizado inclusive para a entrega das atividades;
+* **Visual Studio Code** — editor de código, com extensões de C/C++ e depuração embarcada (Cortex-Debug).
+
+Como pré-requisito formal, é esperado domínio de **Sistemas Digitais** e **Programação Procedimental em Linguagem C**.
+
+O desenvolvimento de firmware para sistemas embarcados exige o uso de ferramentas específicas que facilitam a criação, compilação e depuração do código. Nesta disciplina, evitaremos o uso de IDEs proprietárias — como o STM32CubeIDE e até mesmo de plugins de configuração automática, como o novo STM32 VS Code Extension. Optamos por este caminho para garantir que você não dependa de geradores de código automáticos que escondem a complexidade do hardware. Ao configurar seu próprio ambiente, você compreende exatamente como o linker script, os arquivos de inicialização e os scripts de depuração funcionam, tornando seu conhecimento portável para qualquer outra arquitetura ou fabricante.
+
+::: {.content-card}
+#### **Visual Studio Code**
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-3 .text-center}
+![](../shared/images/logo-vscode.png)
+:::
+
+::: {.g-col-12 .g-col-md-9}
+O Visual Studio Code (VS Code) consolidou-se como o editor preferencial para o desenvolvimento de firmware moderno, substituindo IDEs proprietárias que muitas vezes são pesadas e pouco flexíveis. Seu grande trunfo reside na arquitetura extensível: através de extensões como a Cortex-Debug e o suporte nativo à linguagem C/C++, ele se transforma em uma estação de trabalho completa que integra edição, compilação e depuração em um único fluxo, mantendo total visibilidade sobre a integração entre editor, toolchain (GCC) e depurador (GDB/OpenOCD).
+:::
+:::
+:::
+
+::: {.content-card}
+#### **GNU ARM Toolchain + GNU Make**
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-3 .text-center}
+![](../shared/images/gnu-arm-toolchain.png)
+:::
+
+::: {.g-col-12 .g-col-md-9}
+O **GNU Arm Embedded Toolchain** é o coração técnico do desenvolvimento profissional para microcontroladores ARM Cortex-M. Diferente de compiladores para desktop, ele é uma ferramenta de **compilação cruzada** (*cross-compilation*): roda em sua máquina *host*, mas gera código binário específico para o alvo ARM.
+
+A automação do processo de build é feita com **GNU Make**: escrevemos o `Makefile` manualmente, regra por regra, ao invés de utilizar geradores como o CMake. Isso garante que você entenda exatamente cada etapa do processo — compilação, geração de dependências, *linking* e conversão para binário — sem nenhuma camada adicional escondendo o que está de fato acontecendo. Ferramentas de build de mais alto nível, como o **CMake**, podem ser exploradas mais adiante, já no contexto do projeto integrador, quando a escala do projeto justificar essa camada extra de automação.
+
+* **Independência de Fornecedor**: seu projeto é portável entre diferentes fabricantes (ST, NXP, TI), sem os arquivos de projeto proprietários que prendem o desenvolvedor a uma única IDE.
+* **Transparência Total**: o uso do GCC nos obriga a manipular o Linker Script e os arquivos de Startup, garantindo que você entenda exatamente onde cada byte do seu código está sendo alocado na memória Flash ou RAM.
+* **Padrão de Indústria**: o `arm-none-eabi-gcc` é o motor por trás da grande maioria das ferramentas modernas e servidores de Integração Contínua (CI/CD).
+:::
+:::
+:::
+
+## Referências
+
+[1] [STM32F411xC/E Datasheet](https://www.st.com/resource/en/datasheet/stm32f411ce.pdf)
+
+[2] [RM0383 Reference Manual — STM32F411xC/E advanced ARM-based 32-bit MCUs](https://www.st.com/resource/en/reference_manual/rm0383-stm32f411xce-advanced-armbased-32bit-mcus-stmicroelectronics.pdf)
+
+[3] [ARMv7-M Architecture Reference Manual](https://developer.arm.com/documentation/ddi0403/latest/)
+
+[4] [Using the GNU Compiler Collection (GCC)](https://gcc.gnu.org/onlinedocs/gcc/index.html)
+
+[5] [GNU Make Manual](https://www.gnu.org/software/make/manual/html_node/index.html)
+
+[6] [Using ld, the GNU linker](https://sourceware.org/binutils/docs/ld/)

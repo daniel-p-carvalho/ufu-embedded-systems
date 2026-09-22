@@ -1,0 +1,67 @@
+---
+title: "Ferramentas de Projeto de Hardware"
+---
+
+# Ferramentas de Projeto de Hardware
+
+Este módulo introduz o design de hardware, encerrando o curso com o projeto integrador. Conhecimentos de **Circuitos Elétricos** e **Eletrônica** são recomendados e facilitam as etapas a seguir.
+
+O desenvolvimento de hardware moderno é indissociável das ferramentas **EDA** (*Electronic Design Automation*). Estes ecossistemas automatizam a transição entre o conceito teórico e a implementação física, sendo indispensáveis para projetar, simular e validar esquemas eletrônicos com rigor técnico. Através de recursos avançados — como a verificação de regras elétricas (**ERC**) e de layout (**DRC**), visualização 3D e exportação de arquivos Gerber — as ferramentas **EDA** garantem que o layout da **PCB** possua a precisão necessária para a fabricação industrial.
+
+::: {.content-card}
+#### **Altium Designer**
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-3 .text-center}
+![](../shared/images/logo-altium.png)
+:::
+
+::: {.g-col-12 .g-col-md-9}
+**Ferramenta principal recomendada no curso.** É o padrão ouro da indústria, com ferramentas de roteamento interativo extremamente poderosas, gerenciamento avançado de regras de design (DRC) e foco em produtividade para projetos profissionais de alta complexidade.
+
+* **Atenção:** através do programa **Altium Student License**, estudantes universitários podem solicitar uma **licença educacional gratuita de seis meses (renovável)**, garantindo acesso à mesma tecnologia utilizada pelas grandes empresas. **Todos os estudantes da disciplina são incentivados a solicitar essa licença já nas primeiras semanas do curso.**
+* **Desvantagens:** curva de aprendizado mais íngreme para dominar todas as funcionalidades avançadas; exige hardware razoavelmente potente para execução fluida.
+:::
+:::
+:::
+
+::: {.content-card}
+#### **KiCad EDA**
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-3 .text-center}
+![](../shared/images/logo-kicad.png)
+:::
+
+::: {.g-col-12 .g-col-md-9}
+Alternativa **open-source**, sem custos de licenciamento e com uma comunidade global vibrante, para quem preferir não depender de licenciamento educacional. Possui um gerenciador de bibliotecas flexível e não impõe restrições ao tamanho da placa.
+
+* **Desvantagens:** interface pode parecer menos intuitiva para quem vem de ferramentas comerciais; recursos de simulação nativa e roteamento interativo são menos avançados que soluções de ponta.
+:::
+:::
+:::
+
+::: {.content-card}
+#### **Autodesk Fusion 360**
+
+::: {.grid}
+::: {.g-col-12 .g-col-md-3 .text-center}
+![](../shared/images/logo-fusion360.png)
+:::
+
+::: {.g-col-12 .g-col-md-9}
+Alternativa recomendada para projetos que exigem uma integração profunda entre a eletrônica e o design mecânico, com integração nativa incomparável entre o design eletrônico (ECAD) e o design mecânico (MCAD) e excelente visualização 3D para projetar gabinetes e caixas.
+
+* **Atenção:** estudantes universitários podem acessar o **Autodesk Fusion 360 Education License**, licença gratuita de um ano (renovável) para uso acadêmico.
+* **Desvantagens:** modelo de assinatura (licença gratuita limitada para estudantes); forte dependência de processamento em nuvem e conexão estável com a internet.
+:::
+:::
+:::
+
+## Referências
+
+[1] [Altium Designer Documentation](https://www.altium.com/documentation/altium-designer)
+
+[2] [KiCad EDA Documentation](https://docs.kicad.org/)
+
+[3] [Autodesk Fusion 360 Documentation](https://help.autodesk.com/view/fusion360/ENU/)
