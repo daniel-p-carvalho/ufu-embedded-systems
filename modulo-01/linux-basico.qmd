@@ -1,0 +1,411 @@
+---
+title: "Aula Opcional: Fundamentos de Linux"
+---
+
+# Aula Opcional: Fundamentos de Linux {.unnumbered}
+
+::: {.callout-note}
+Esta é uma aula **opcional**, pensada para estudo autônomo. Se você já tem familiaridade com terminal Linux, pode pular direto para [Ambiente e Ferramentas de Desenvolvimento](index.qmd). Se é sua primeira vez usando um terminal Linux, siga a aula na ordem — cada seção termina com uma atividade de fixação antes de avançar para a próxima.
+:::
+
+## Por que terminal antes de interface gráfica?
+
+Pode parecer estranho começar um curso de 2026 aprendendo uma interface de texto que existe desde os anos 1970. Mas há uma razão prática, direta, para isso — e ela é exatamente a mesma razão pela qual este curso é *bottom-up*: **a interface gráfica esconde o que está acontecendo por baixo, o terminal não**.
+
+Quando você clica em um botão numa IDE gráfica, várias operações acontecem por trás do que você nunca vê. Quando você digita um comando no terminal, você vê exatamente o que foi executado, com quais parâmetros, e pode repetir, automatizar ou depurar esse passo com precisão. Isso importa especialmente em sistemas embarcados, onde as ferramentas de linha de comando (compilador, linker, gravador, depurador) **são** a ferramenta — não existe uma "versão gráfica" por trás disso escondendo a complexidade.
+
+Outros motivos práticos:
+
+* **Portabilidade:** os mesmos comandos funcionam em qualquer distribuição Linux, em qualquer servidor remoto, em qualquer pipeline de integração contínua (CI/CD). Uma sequência de cliques numa GUI não é reproduzível dessa forma.
+* **Automação:** comandos podem ser salvos em *scripts* e repetidos identicamente quantas vezes for necessário — a base de tudo que faremos com `Makefile` mais adiante no curso.
+* **Precisão:** o terminal não tem ambiguidade. Um comando faz exatamente o que foi escrito, sempre.
+
+## Um pouco de história
+
+O Unix nasceu no fim dos anos 1960 em um contexto de hardware extremamente limitado — não havia recursos computacionais sobrando para telas gráficas elaboradas. A interface de texto não era um limite estético, era a forma mais eficiente de interagir com a máquina. O programa que interpreta o que você digita e traduz em ações do sistema operacional se chama **shell** — é ele quem "conversa" com você no terminal.
+
+Décadas depois, mesmo com hardware gráfico abundante, o shell continua sendo a interface preferida para desenvolvimento profissional — não por nostalgia, mas porque ainda é a forma mais direta de operar um sistema, e a mais fácil de combinar em soluções novas, como veremos ao longo desta aula.
+
+## Sistemas de arquivos: Windows vs. Linux
+
+Antes de digitar o primeiro comando, vale entender a árvore de diretórios que você vai navegar — especialmente porque ela é estruturalmente diferente do que você já conhece no Windows.
+
+**Múltiplas unidades vs. uma única árvore.** No Windows, cada disco/partição recebe uma letra própria (`C:\`, `D:\`...), cada uma sua própria árvore independente. No Linux, existe **uma única árvore**, começando na **raiz** `/`. Qualquer outro disco ou partição é "montado" como uma subpasta dentro dessa mesma árvore — não existe um "D:\" separado, existe um diretório a mais pendurado em algum lugar de `/`. Os caminhos também usam barra normal `/`, não a barra invertida `\` do Windows.
+
+**Pasta pessoal.** O equivalente ao `C:\Users\<usuário>` do Windows é `/home/<usuário>` no Linux — é para lá que o comando `cd`, sem argumentos, sempre te leva.
+
+**A ponte do WSL.** Como estamos rodando Ubuntu dentro do WSL, os dois mundos coexistem: seus discos Windows ficam acessíveis de dentro do Linux em `/mnt/c/`, `/mnt/d/`, etc. Por exemplo, os arquivos baixados pelo navegador do Windows normalmente estão em `/mnt/c/Users/<usuário>/Downloads`. É assim que você transita entre os dois sistemas de arquivos sem sair do terminal.
+
+**Atenção a maiúsculas e minúsculas.** O Windows não distingue `Sample.txt` de `sample.txt` — pra ele são o mesmo arquivo. O Linux **distingue**: `Sample.txt` e `sample.txt` são dois arquivos diferentes, coexistindo na mesma pasta. Um erro de digitação em maiúscula/minúscula é uma causa comum de "arquivo não encontrado" para quem está começando.
+
+**Quase tudo é um arquivo.** Um traço bem particular do Linux: até dispositivos de hardware (discos, portas seriais, gravadores USB) aparecem como arquivos dentro de `/dev/`. Isso não é só curiosidade — é exatamente o que vamos usar mais adiante: o gravador **ST-LINK** que programa o microcontrolador vai aparecer como um arquivo tipo `/dev/bus/usb/001/00X`, e as permissões desse "arquivo" (que veremos na próxima seção) são o que determina se você consegue ou não gravar o firmware.
+
+Alguns diretórios padrão que você vai encontrar pela frente: `/home` (arquivos pessoais dos usuários), `/etc` (arquivos de configuração do sistema), `/usr` (a maior parte dos programas instalados), `/tmp` (arquivos temporários, apagados a cada reinicialização).
+
+### Caminhos absolutos e relativos
+
+Um **caminho absoluto** começa em `/` e descreve a localização de um arquivo/diretório de forma completa, independente de onde você está:
+
+```console
+foo@bar$ cd /home/usuario/semb1-workspace
+```
+
+Um **caminho relativo** é descrito a partir do diretório atual — sem `/` no início:
+
+```console
+foo@bar$ cd semb1-workspace      # entra em uma subpasta do diretório atual
+foo@bar$ cd ..                   # sobe um nível (diretório pai)
+foo@bar$ cd ../outro-diretorio   # sobe um nível e entra em outro
+```
+
+::: {.callout-note}
+**Para saber mais:** o que apresentamos aqui é o suficiente para o dia a dia. Se você quiser entender o que realmente acontece por baixo quando um arquivo é salvo (journaling, cache de escrita, `fsync`...), veja [Internals of Windows and Linux File Systems](https://keyurramoliya.com/posts/Internals-of-windows-and-linux-file-systems/) — leitura opcional, bem mais avançada.
+:::
+
+## Abrindo o terminal e o primeiro comando
+
+Vamos ver isso na prática. Abra o terminal do Ubuntu (WSL) e você verá uma linha parecida com esta, esperando você digitar algo:
+
+```console
+foo@bar:~$
+```
+
+Essa linha é o **prompt** — a forma do shell dizer "estou pronto, pode digitar um comando". `foo` é o nome do usuário, `bar` é o nome da máquina, `~` indica que você está na sua pasta *home*, e `$` marca o fim do prompt (por convenção, um usuário comum; um `#` no lugar indicaria uma sessão como *root*, o superusuário). Ao longo desta aula, os blocos de código usam `foo@bar$` de forma simplificada só para indicar "isto é um comando digitado no terminal" — na sua tela, o `foo@bar` será substituído pelo seu usuário e sua máquina de verdade.
+
+Digite seu primeiro comando: `pwd` (*Print Working Directory*), que mostra o caminho completo do diretório em que você está agora.
+
+```console
+foo@bar$ pwd
+```
+
+::: {.callout-tip title="Atividade de fixação"}
+Abra o terminal e execute `pwd`. Qual foi o caminho retornado? Ele deveria começar com `/home/` seguido do seu nome de usuário — essa é a sua pasta *home*.
+:::
+
+## Anatomia de um comando
+
+Antes de ver mais comandos, vale entender o padrão que praticamente todos eles seguem:
+
+```console
+foo@bar$ comando [opções] [argumentos]
+```
+
+* O **comando** é o programa que você quer executar (`pwd`, `ls`, `cd`...).
+* As **opções** (ou *flags*) modificam o comportamento do comando. Vêm precedidas de `-` (forma curta, geralmente uma letra, como `-l`) ou `--` (forma longa, mais descritiva, como `--all`). Muitos comandos aceitam as duas formas para a mesma opção.
+* Os **argumentos** são o "alvo" do comando — geralmente um arquivo, um diretório, ou um texto.
+
+Por exemplo, em `ls -l /home`, `ls` é o comando, `-l` é uma opção (formato de listagem detalhado) e `/home` é o argumento (o diretório a ser listado). Nem todo comando exige as três partes — `pwd` sozinho já é um comando completo, sem opções nem argumentos.
+
+Esse padrão vai se repetir constantemente ao longo do curso — inclusive nas ferramentas que ainda vamos instalar, como `arm-none-eabi-gcc -c -mcpu=cortex-m4 -mthumb -O0 -Wall main.c -o main.o`: mesmo parecendo complexo à primeira vista, é a mesma estrutura `comando [opções] [argumentos]`, só que com mais opções e mais argumentos.
+
+## Navegação básica
+
+Além de `pwd`, os comandos mais usados para navegar são `cd`, `mkdir` e `ls`.
+
+**`cd`** (*Change Directory*) altera o diretório atual. Sem argumentos, leva à sua pasta *home*:
+
+```console
+foo@bar$ cd
+```
+
+Para se mover, `cd` aceita tanto caminhos absolutos/relativos (como vimos na seção anterior) quanto dois atalhos especiais, válidos em **qualquer** contexto do sistema, não só no `cd`:
+
+* **`.`** (um ponto) significa "o diretório atual";
+* **`..`** (dois pontos) significa "o diretório pai" (um nível acima na árvore).
+
+```console
+foo@bar$ cd ..           # sobe um nível
+foo@bar$ cd ../..        # sobe dois níveis
+foo@bar$ cd ./semb1-workspace   # equivalente a "cd semb1-workspace"
+```
+
+**`mkdir`** (*Make Directory*) cria um novo diretório:
+
+```console
+foo@bar$ mkdir semb1-workspace
+```
+
+**`ls`** lista o conteúdo de um diretório. Sozinho, mostra só os nomes; combinado com opções, revela bem mais informação. As mais usadas:
+
+| Opção | O que faz |
+|:---:|---|
+| `-l` | Formato detalhado: permissões, dono, tamanho, data de modificação |
+| `-a` | Inclui arquivos ocultos (nomes começando com `.`) — veremos isso em detalhe adiante |
+| `-h` | Tamanhos em formato legível (KB/MB/GB), combine com `-l` |
+| `-t` | Ordena pela data de modificação (mais recente primeiro) |
+| `-R` | Lista recursivamente, entrando em subdiretórios |
+
+: {tbl-colwidths="[15,85]"}
+
+Opções podem ser combinadas em uma única flag: `ls -lah` equivale a `ls -l -a -h`.
+
+```console
+foo@bar$ ls -l
+foo@bar$ ls -lah
+```
+
+Para consultar o manual de qualquer comando (incluindo todas as opções que ele aceita), use `man`:
+
+```console
+foo@bar$ man ls
+```
+
+O `man` abre o manual num **paginador de texto** (o mesmo `less` que usaremos mais adiante para ler arquivos grandes) — a tela fica "tomada" pelo manual até você sair dele, o que costuma confundir quem nunca usou. Navegação básica dentro do `man`:
+
+* **setas ↑/↓** ou **`j`/`k`** — rola uma linha por vez;
+* **barra de espaço** — avança uma tela inteira; **`b`** — volta uma tela;
+* **`/palavra`** seguido de **Enter** — busca `palavra` no texto; **`n`** repete a busca para a próxima ocorrência;
+* **`q`** — sai do manual e volta ao prompt.
+
+### Repetindo comandos com history
+
+O terminal guarda um histórico de tudo que você já digitou nessa sessão. Duas formas de reaproveitar isso:
+
+* **seta ↑** — traz de volta o último comando digitado (e ↓ avança de novo); é a forma mais rápida de corrigir um comando que deu erro por um pequeno detalhe;
+* **`history`** — lista todo o histórico de comandos, numerado.
+
+```console
+foo@bar$ history
+```
+
+::: {.callout-tip title="Atividade de fixação"}
+A partir da sua pasta *home*, crie a estrutura `semb1-workspace/modulo-01/atividade-01` usando três comandos `mkdir` separados (dica: `mkdir -p` cria todos os níveis de uma vez — pesquise no `man mkdir` o que o `-p` faz). Depois, usando **apenas caminhos relativos** (incluindo `.`/`..`), navegue até `atividade-01` e depois volte para a sua pasta *home* em um único comando `cd`. Por fim, rode `ls -lah` na sua pasta *home* e identifique: qual arquivo é o mais recentemente modificado?
+:::
+
+## Criando, movendo e removendo arquivos
+
+Voltando ao `mkdir`: sozinho, ele só cria um nível de diretório por vez, e falha se os diretórios "pais" ainda não existirem. A opção **`-p`** resolve isso, criando toda a cadeia de diretórios necessária de uma vez:
+
+```console
+foo@bar$ mkdir semb1-workspace                          # cria só este nível
+foo@bar$ mkdir -p semb1-workspace/modulo-01/atividade-02 # cria os três níveis de uma vez
+```
+
+Para copiar, mover e remover arquivos, usaremos três comandos, todos seguindo o padrão `comando origem destino` (exceto `rm`, que não tem "destino"):
+
+**`cp`** (*copy*) copia um arquivo, deixando o original no lugar:
+
+```console
+foo@bar$ cp main.c main.c.bak
+```
+
+**`mv`** (*move*) move um arquivo para outro lugar — e é também como se renomeia um arquivo no Linux (não existe um comando `rename` separado: "renomear" é apenas "mover para o mesmo diretório com outro nome"):
+
+```console
+foo@bar$ mv main.c.bak backup/
+foo@bar$ mv relatorio-rascunho.txt relatorio-final.txt   # isso é um "rename"
+```
+
+**`rm`** (*remove*) apaga um arquivo. Diferente de `cp`/`mv`, não recebe destino, só o que apagar:
+
+```console
+foo@bar$ rm backup/main.c.bak
+```
+
+Os três aceitam opções em comum, que mudam bastante o comportamento:
+
+| Opção | Comando(s) | O que faz |
+|:---:|:---:|---|
+| `-r` | `cp`, `rm` | Recursivo: opera também dentro de subdiretórios. Necessário para copiar/remover um diretório inteiro |
+| `-i` | `cp`, `mv`, `rm` | Interativo: pede confirmação antes de sobrescrever ou apagar algo |
+| `-f` | `rm` | Força: remove sem pedir confirmação, e não reclama se o arquivo já não existir |
+| `-v` | `cp`, `mv`, `rm` | Verboso: mostra na tela cada arquivo conforme é copiado/movido/removido |
+
+: {tbl-colwidths="[12,18,70]"}
+
+```console
+foo@bar$ cp -r projeto/ projeto-backup/     # copia o diretório projeto inteiro
+foo@bar$ rm -rf build/                      # remove build/ e tudo dentro, sem perguntar
+```
+
+::: {.callout-warning}
+Diferente da lixeira do Windows/macOS, **`rm` no Linux é permanente** — não existe "restaurar" por padrão. `rm -rf` em particular apaga sem confirmar e sem avisar se algo não existir — é rápido de digitar e rápido de causar estrago se o caminho estiver errado. Se não tiver certeza, use `-i` para forçar uma confirmação antes de cada arquivo.
+:::
+
+Para visualizar rapidamente o conteúdo de um arquivo grande sem abrir um editor, use o paginador `less` (o mesmo que o `man` usa por baixo):
+
+```console
+foo@bar$ less arquivo-grande.log
+```
+(pressione `q` para sair)
+
+::: {.callout-tip title="Atividade de fixação"}
+Dentro de `atividade-01`, use `mkdir -p` para criar `rascunho/v1` e `rascunho/v2` em um único comando. Copie `arquivo1.c` para dentro de `rascunho/v1` usando `-v` e observe a mensagem exibida. Por fim, remova o diretório `rascunho` inteiro com `rm -r`, mas primeiro com `-i` (confirmando cada remoção) — depois recrie a estrutura e remova de novo, desta vez com `-rf`, sem confirmação.
+:::
+
+### Wildcards (curingas)
+
+O caractere `*` substitui qualquer sequência de caracteres, e `?` substitui exatamente um caractere. São extremamente úteis para operar em vários arquivos de uma vez:
+
+```console
+foo@bar$ rm *.o           # remove todos os arquivos objeto
+foo@bar$ ls *.c           # lista todos os arquivos .c
+```
+
+::: {.callout-tip title="Atividade de fixação"}
+Dentro de `atividade-01`, crie três arquivos vazios com `touch arquivo1.c arquivo2.c notas.txt`. Em seguida, use um único comando com wildcard para listar apenas os arquivos `.c`, e outro comando com wildcard para copiar todos eles (`.c` e `.txt`) para um novo subdiretório `backup/`.
+:::
+
+## Editores de texto no terminal
+
+Até agora criamos arquivos vazios (`touch`) ou copiamos conteúdo já existente — mas em algum momento você vai precisar **editar** um arquivo sem sair do terminal. Isso acontece com mais frequência do que parece: editar um arquivo de configuração que exige `sudo`, ajustar um script rapidamente, ou escrever a mensagem de um commit do Git.
+
+Ao longo do curso, o **VS Code** (conectado ao WSL via Remote-WSL, como veremos no roteiro de [Ambiente e Ferramentas](index.qmd)) será seu editor principal para escrever código. Mas vale conhecer dois editores que rodam **dentro do próprio terminal**, sem precisar de interface gráfica — essenciais quando você está de dentro do WSL editando algo direto, ou um dia trabalhando num servidor remoto sem interface gráfica nenhuma.
+
+### nano: simples e direto
+
+O **`nano`** é o editor recomendado para quem está começando: não tem modos diferentes (você digita e o texto aparece, sem "entrar" ou "sair" de nenhum estado), e mostra os atalhos disponíveis fixados na parte de baixo da tela.
+
+```console
+foo@bar$ nano arquivo.txt
+```
+
+Os atalhos mais usados (o símbolo `^` significa **Ctrl**):
+
+| Atalho | O que faz |
+|:---:|---|
+| `Ctrl+O` | Salva o arquivo (*write out*) — pede para confirmar o nome, pressione Enter |
+| `Ctrl+X` | Sai do nano (pede para salvar antes, se houver alterações não salvas) |
+| `Ctrl+K` | Recorta a linha atual |
+| `Ctrl+U` | Cola a última linha recortada |
+| `Ctrl+W` | Busca um trecho de texto no arquivo |
+
+: {tbl-colwidths="[15,85]"}
+
+### vim: onipresente, porém exigente
+
+O **`vim`** vem instalado por padrão em praticamente qualquer sistema Linux/Unix que você vai encontrar — inclusive servidores remotos onde você não tem a opção de instalar o `nano`. Por isso, mesmo sem adotá-lo como editor principal, vale saber o mínimo para **sobreviver** dentro dele.
+
+A diferença fundamental é que o `vim` é **modal**: existe um modo para navegar/comandar (*Normal*) e um modo para digitar texto (*Insert*), e você precisa alternar entre eles conscientemente — diferente do `nano`, onde você só digita.
+
+```console
+foo@bar$ vim arquivo.txt
+```
+
+O roteiro mínimo de sobrevivência:
+
+1. Ao abrir, você está em modo **Normal** (não digita texto ainda, cada tecla é um comando);
+2. Pressione **`i`** para entrar em modo **Insert** — agora sim, o que você digitar vira texto no arquivo;
+3. Pressione **`Esc`** para voltar ao modo Normal;
+4. Em modo Normal, digite **`:wq`** e pressione Enter para **salvar e sair** (*write* + *quit*);
+5. Se quiser sair **sem salvar**, em modo Normal digite **`:q!`** e pressione Enter.
+
+::: {.callout-note}
+"Como eu saio do vim?" é piada recorrente entre programadores — é fácil ficar preso nele na primeira vez. Se isso acontecer: pressione `Esc` algumas vezes para garantir que está em modo Normal, depois digite `:q!` e Enter.
+:::
+
+Para este curso, `nano` é suficiente para qualquer edição rápida que fizermos no terminal — o `vim` fica aqui só para o dia em que você esbarrar nele (por exemplo, o Git abre o `vim` por padrão para escrever mensagens de commit longas) e precisar sair vivo.
+
+::: {.callout-tip title="Atividade de fixação"}
+Dentro de `atividade-01`, abra `notas.txt` com `nano`, escreva uma linha de texto qualquer, salve e saia (`Ctrl+O`, Enter, `Ctrl+X`). Confirme o conteúdo com `cat notas.txt`. Em seguida, abra o mesmo arquivo com `vim`, entre em modo Insert (`i`), acrescente uma segunda linha, volte ao modo Normal (`Esc`) e salve/saia com `:wq`.
+:::
+
+## Buscando arquivos e conteúdo
+
+Wildcards resolvem bem quando você já sabe *onde* o arquivo está e só precisa filtrar por nome, no diretório atual. Duas ferramentas resolvem problemas mais amplos: encontrar um arquivo em qualquer lugar da árvore, ou encontrar um trecho de texto dentro do conteúdo dos arquivos.
+
+### find: buscando arquivos pela árvore
+
+O **`find`** procura arquivos recursivamente, descendo por todos os subdiretórios a partir de um ponto de partida — ao contrário do wildcard, que só enxerga o diretório atual.
+
+```console
+foo@bar$ find . -name "*.c"          # busca arquivos .c a partir do diretório atual
+foo@bar$ find /home -name "main.c"   # busca "main.c" a partir de /home
+```
+
+O primeiro argumento é **onde** procurar (`.` para "aqui", ou um caminho absoluto), e `-name` filtra pelo nome (aceita wildcards). O `find` tem dezenas de outros filtros (por tamanho, por data de modificação, por tipo) — consulte `man find` quando precisar de algo mais específico.
+
+### grep: buscando texto dentro dos arquivos
+
+Enquanto `find` localiza **arquivos**, o **`grep`** localiza **texto dentro do conteúdo** de um ou mais arquivos — extremamente útil para, por exemplo, encontrar em qual arquivo `.c` do seu projeto uma função foi declarada.
+
+```console
+foo@bar$ grep "main" arquivo.c              # procura a palavra "main" em arquivo.c
+foo@bar$ grep -r "main" .                   # -r: busca recursivamente em todos os arquivos a partir daqui
+foo@bar$ grep -n "main" arquivo.c           # -n: mostra o número da linha de cada ocorrência
+```
+
+`grep` é também o exemplo clássico de ferramenta feita para ser **combinada com outras via pipe**, como veremos a seguir.
+
+::: {.callout-tip title="Atividade de fixação"}
+Dentro de `atividade-01`, escreva a palavra `TODO` em algum lugar do conteúdo de `arquivo1.c` (dica: `echo "// TODO: revisar" >> arquivo1.c` acrescenta essa linha ao arquivo). Depois, use `grep` para confirmar em qual arquivo aquela palavra aparece, e use `find` para localizar o arquivo `notas.txt` a partir da sua pasta *home*, sem saber de antemão que ele estava dentro de `atividade-01`.
+:::
+
+## Superusuário e gerenciamento de pacotes
+
+Sistemas Unix (dos quais o Linux faz parte) controlam de forma detalhada quem pode acessar cada arquivo, dispositivo ou recurso do sistema. Ações administrativas — como instalar programas — exigem privilégio de superusuário (administrador). Para isso usamos o comando **`sudo`** (*super user do*), que pede sua senha e executa **apenas o comando seguinte** com privilégios elevados — diferente de abrir uma sessão inteira como *root* (`su`), que é desnecessário e mais arriscado para o uso do dia a dia.
+
+O gerenciador de pacotes do Ubuntu é o **`apt`** (*Advanced Packaging Tool*). Os comandos mais usados:
+
+```console
+foo@bar$ sudo apt update    # atualiza a lista de pacotes disponíveis
+foo@bar$ sudo apt upgrade   # baixa e instala atualizações dos programas já instalados
+foo@bar$ sudo apt install <pacote>   # instala um novo programa
+```
+
+## Tipos de arquivo e permissões
+
+No Linux, (quase) tudo é representado como um arquivo — inclusive dispositivos de hardware, como o gravador ST-LINK que usaremos para programar o microcontrolador. Ao listar um diretório com `ls -l`, a primeira coluna mostra o tipo do arquivo e suas permissões, por exemplo:
+
+```
+crw-------  1 root root 189, 2 jan  1 00:00 /dev/bus/usb/001/003
+```
+
+O **primeiro caractere** indica o tipo do arquivo:
+
+* `-` — arquivo comum
+* `d` — diretório
+* `l` — link simbólico
+* `c` — dispositivo do tipo caractere (como o ST-LINK)
+* `b` — dispositivo do tipo bloco
+* `p` — *pipe* (FIFO)
+* `s` — *socket*
+
+Os **9 caracteres seguintes** são três grupos de três (`rwx`), indicando permissão de leitura (**r**ead), escrita (**w**rite) e execução (e**x**ecute) — respectivamente para o **dono** do arquivo, o **grupo** ao qual ele pertence, e **todos os demais** usuários. Um `-` no lugar da letra indica que aquela permissão não foi concedida.
+
+No exemplo acima, `crw-------` significa: é um dispositivo de caractere, e **apenas o usuário `root`** tem permissão de leitura e escrita — nenhum outro usuário (nem grupo, nem "todos os demais") tem qualquer acesso. É exatamente esse tipo de restrição que precisamos contornar (com regras `udev`) para que seu usuário comum consiga acessar o gravador ST-LINK, como veremos no roteiro de [Ambiente e Ferramentas de Desenvolvimento](index.qmd).
+
+### Arquivos ocultos
+
+Arquivos e diretórios cujo nome começa com `.` (ponto) são ocultos por padrão — geralmente arquivos de configuração que não devem poluir uma listagem comum. Use a opção `-a` do `ls` para revelá-los:
+
+```console
+foo@bar$ ls -a
+foo@bar$ ls -la     # combina com -l para ver também tipo/permissões
+```
+
+::: {.callout-tip title="Atividade de fixação"}
+Rode `ls -la` na sua pasta *home*. Encontre um arquivo oculto (nome começando com `.`) e identifique, pelas letras `rwx`, se você (dono) tem permissão de escrita nele. Depois, rode `ls -l /dev/null` e interprete o resultado: que tipo de arquivo é esse, e quem tem permissão de leitura/escrita?
+:::
+
+## Compondo comandos com pipes
+
+Um dos recursos mais poderosos do terminal é o **pipe** (`|`): ele conecta a saída de um comando diretamente à entrada do próximo, permitindo combinar ferramentas simples para resolver tarefas complexas — sem escrever um programa novo para cada combinação.
+
+```console
+foo@bar$ ls -la | sort | less
+```
+
+O comando acima lista os arquivos (`ls -la`), ordena o resultado (`sort`) e envia para o paginador (`less`) — três ferramentas independentes, cada uma fazendo uma coisa bem, combinadas em uma única linha. Essa filosofia — programas pequenos, combinados entre si, em vez de uma ferramenta monolítica que faz tudo — é a mesma filosofia por trás de por que preferimos escrever nosso próprio `Makefile` a usar uma IDE que esconde os passos de compilação: entender e combinar as peças, em vez de depender de uma caixa preta que faz tudo de uma vez.
+
+O `grep`, que vimos na seção anterior, é o exemplo mais comum de comando pensado para viver do lado direito de um pipe — filtrando a saída de outro comando:
+
+```console
+foo@bar$ history | grep gcc          # entre tudo que já digitei, o que envolveu "gcc"?
+foo@bar$ ls -la | grep ".c"          # entre os arquivos listados, quais têm ".c" no nome?
+```
+
+::: {.callout-tip title="Atividade de fixação"}
+Na sua pasta `atividade-01`, use um pipe para contar quantos arquivos `.c` existem no diretório, combinando `ls *.c` com o comando `wc -l` (dica: `wc -l` conta linhas da entrada que recebe). Depois, refaça o mesmo resultado de outra forma, combinando `ls -la` com `grep` e `wc -l` em um único pipe de três comandos.
+:::
+
+## Onde isso se aplica no curso
+
+Esses conceitos não são "cultura geral" — você vai usá-los diretamente:
+
+* `cd`/`mkdir`/`ls`/caminhos relativos para organizar cada atividade em seu próprio diretório dentro de `semb1-workspace`;
+* `cp`/`mv`/`rm`/wildcards para gerenciar os arquivos de código-fonte e objeto gerados durante a compilação;
+* `sudo apt install` para instalar cada ferramenta do roteiro de ambiente;
+* `nano` para editar rapidamente as regras `udev` que vamos copiar para `/etc/udev/rules.d`, exatamente no roteiro de [Ambiente e Ferramentas de Desenvolvimento](index.qmd);
+* Permissões de arquivo para entender por que o ST-LINK "não aparece" até configurarmos essas regras corretamente;
+* `find`/`grep` para localizar arquivos e trechos de código em projetos com dezenas de arquivos fonte — cada vez mais úteis conforme os laboratórios crescem.

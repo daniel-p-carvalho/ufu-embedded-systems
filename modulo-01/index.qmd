@@ -4,63 +4,238 @@ title: "Ambiente e Ferramentas de Desenvolvimento"
 
 # Ambiente e Ferramentas de Desenvolvimento
 
-Antes de iniciar as atividades práticas deste módulo, é necessário configurar o ambiente de desenvolvimento que será utilizado ao longo de **todo o curso**:
-
-* **Windows Subsystem for Linux 2 (WSL2)** — ambiente Linux para compilação cruzada;
-* **GNU Arm Embedded Toolchain** (`arm-none-eabi-gcc`) — compilador cruzado para a arquitetura ARM Cortex-M;
-* **GNU Make** — automação do processo de compilação;
-* **OpenOCD** — depurador *on-chip* para gravação e depuração via SWD/JTAG;
-* **Git** — controle de versão, utilizado inclusive para a entrega das atividades;
-* **Visual Studio Code** — editor de código, com extensões de C/C++ e depuração embarcada (Cortex-Debug).
-
-Como pré-requisito formal, é esperado domínio de **Sistemas Digitais** e **Programação Procedimental em Linguagem C**.
-
 O desenvolvimento de firmware para sistemas embarcados exige o uso de ferramentas específicas que facilitam a criação, compilação e depuração do código. Nesta disciplina, evitaremos o uso de IDEs proprietárias — como o STM32CubeIDE e até mesmo de plugins de configuração automática, como o novo STM32 VS Code Extension. Optamos por este caminho para garantir que você não dependa de geradores de código automáticos que escondem a complexidade do hardware. Ao configurar seu próprio ambiente, você compreende exatamente como o linker script, os arquivos de inicialização e os scripts de depuração funcionam, tornando seu conhecimento portável para qualquer outra arquitetura ou fabricante.
 
-::: {.content-card}
-#### **Visual Studio Code**
+Vamos instalar, nesta ordem:
 
-::: {.grid}
-::: {.g-col-12 .g-col-md-3 .text-center}
-![](../shared/images/logo-vscode.png)
-:::
+* **WSL2** (Windows Subsystem for Linux 2) com **Ubuntu 24.04 LTS**;
+* Acesso a dispositivos **USB** dentro do WSL2, necessário para gravar/depurar via **ST-LINK**;
+* **GCC** e **Git**;
+* **GNU Arm Embedded Toolchain** (`arm-none-eabi-gcc`);
+* **OpenOCD** e as ferramentas **stlink** (gravação/depuração via SWD);
+* **Visual Studio Code**, com as extensões necessárias.
 
-::: {.g-col-12 .g-col-md-9}
-O Visual Studio Code (VS Code) consolidou-se como o editor preferencial para o desenvolvimento de firmware moderno, substituindo IDEs proprietárias que muitas vezes são pesadas e pouco flexíveis. Seu grande trunfo reside na arquitetura extensível: através de extensões como a Cortex-Debug e o suporte nativo à linguagem C/C++, ele se transforma em uma estação de trabalho completa que integra edição, compilação e depuração em um único fluxo, mantendo total visibilidade sobre a integração entre editor, toolchain (GCC) e depurador (GDB/OpenOCD).
-:::
-:::
-:::
-
-::: {.content-card}
-#### **GNU ARM Toolchain + GNU Make**
-
-::: {.grid}
-::: {.g-col-12 .g-col-md-3 .text-center}
-![](../shared/images/gnu-arm-toolchain.png)
+::: {.callout-note}
+Este roteiro assume Windows 10 (versão 2004/build 19041 ou superior) ou Windows 11 como sistema host. Se você já tem uma instalação Linux nativa (dual-boot) ou usa Mac, os passos de WSL2 não se aplicam — pule direto para a seção de instalação das ferramentas, que funciona igual em qualquer Linux.
 :::
 
-::: {.g-col-12 .g-col-md-9}
-O **GNU Arm Embedded Toolchain** é o coração técnico do desenvolvimento profissional para microcontroladores ARM Cortex-M. Diferente de compiladores para desktop, ele é uma ferramenta de **compilação cruzada** (*cross-compilation*): roda em sua máquina *host*, mas gera código binário específico para o alvo ARM.
+## Instalação do WSL2
 
-A automação do processo de build é feita com **GNU Make**: escrevemos o `Makefile` manualmente, regra por regra, ao invés de utilizar geradores como o CMake. Isso garante que você entenda exatamente cada etapa do processo — compilação, geração de dependências, *linking* e conversão para binário — sem nenhuma camada adicional escondendo o que está de fato acontecendo. Ferramentas de build de mais alto nível, como o **CMake**, podem ser exploradas mais adiante, já no contexto do projeto integrador, quando a escala do projeto justificar essa camada extra de automação.
+O Windows 10 (build 19041+) e o Windows 11 já trazem o comando `wsl` embutido, mas o WSL **não vem habilitado por padrão** — é preciso ativá-lo explicitamente. O comando `wsl --install` faz isso: habilita os recursos do Windows necessários (virtualização, kernel Linux) **e** instala uma distribuição, tudo em um único passo — não existe uma etapa separada de "ativar o WSL" antes deste comando.
 
-* **Independência de Fornecedor**: seu projeto é portável entre diferentes fabricantes (ST, NXP, TI), sem os arquivos de projeto proprietários que prendem o desenvolvedor a uma única IDE.
-* **Transparência Total**: o uso do GCC nos obriga a manipular o Linker Script e os arquivos de Startup, garantindo que você entenda exatamente onde cada byte do seu código está sendo alocado na memória Flash ou RAM.
-* **Padrão de Indústria**: o `arm-none-eabi-gcc` é o motor por trás da grande maioria das ferramentas modernas e servidores de Integração Contínua (CI/CD).
+Abra o **Windows PowerShell como administrador** e instale o Ubuntu 24.04 LTS diretamente:
+
+```console
+PS > wsl --install -d Ubuntu-24.04
+```
+
+::: {.callout-tip}
+Se quiser ver antes a lista completa de distribuições disponíveis, rode `wsl --list --online`. Usaremos especificamente o **Ubuntu 24.04 LTS** neste curso — se instalar uma distribuição diferente, você vai precisar adaptar alguns comandos deste roteiro por conta própria.
 :::
+
+Ao final da instalação, você será solicitado a escolher um nome de usuário e uma senha. **Atenção:** nenhum caractere aparece na tela enquanto você digita a senha — isso é normal, digite e pressione **Enter**.
+
+Atualize a lista de pacotes e os programas instalados (isso exige privilégio de administrador, por isso o `sudo` — *super user do*):
+
+```console
+foo@bar$ sudo apt update
+foo@bar$ sudo apt upgrade
+```
+
+Crie os diretórios que usaremos ao longo do curso: um para arquivos baixados da internet, outro como espaço de trabalho das atividades.
+
+```console
+foo@bar$ cd
+foo@bar$ mkdir Downloads
+foo@bar$ mkdir semb1-workspace
+```
+
+Se precisar acessar os arquivos do Linux por um programa do Windows (ou só explorá-los graficamente), abra o Windows Explorer e digite `\\wsl$` na barra de endereços.
+
+## Acesso a dispositivos USB no WSL2 (ST-LINK)
+
+O WSL não tem suporte nativo a USB — é usado um sistema de compartilhamento via rede IP chamado **USB/IP**, que expõe o dispositivo USB do lado Windows (servidor) para o WSL (cliente).
+
+### Instalação do USB/IP
+
+No **Windows**, instale o servidor USB/IP (`usbipd-win`):
+
+```console
+PS > winget install usbipd
+```
+
+No **Ubuntu** (WSL), instale o cliente USB/IP e o banco de dados de identificadores USB:
+
+```console
+foo@bar$ sudo apt install linux-tools-generic hwdata
+foo@bar$ sudo update-alternatives --install /usr/local/bin/usbip usbip /usr/lib/linux-tools/*/usbip 20
+```
+
+::: {.callout-tip}
+Se o comando acima falhar informando que não encontrou o caminho, rode `ls /usr/lib/linux-tools/` para ver a versão exata instalada e ajuste o caminho no comando (`/usr/lib/linux-tools/<versão>/usbip`).
 :::
+
+### Conectando o gravador ST-LINK
+
+Certifique-se de que o serviço `udev` está rodando:
+
+```console
+foo@bar$ sudo service udev restart
+```
+
+Conecte o **ST-LINK** na porta USB. No **Windows**, abra o PowerShell como administrador e liste os dispositivos:
+
+```console
+PS > usbipd list
+```
+
+Anote o **BUSID** do ST-LINK (algo como `3-3` — pode variar conforme a porta USB usada) e conecte-o ao WSL:
+
+```console
+PS > usbipd attach --wsl --busid 3-3
+```
+
+No terminal do Ubuntu, confira se o dispositivo está visível:
+
+```console
+foo@bar$ lsusb
+```
+
+### Ajustando permissões via udev
+
+Por padrão, o dispositivo USB pertence ao usuário `root`, o que impede seu usuário comum de acessá-lo. Isso é o modelo de permissões do Linux: todo arquivo (inclusive dispositivos, que no Linux também são representados como arquivos) tem um dono, um grupo, e três conjuntos de permissões de leitura/escrita/execução (`rwx`) — para o dono, o grupo, e todos os demais.
+
+Para liberar o acesso ao ST-LINK para qualquer usuário, vamos instalar regras `udev` — scripts que o Linux executa automaticamente quando um dispositivo é conectado. Baixe os arquivos de regra deste [diretório do repositório](https://github.com/daniel-p-carvalho/ufu-embedded-systems/tree/master/modulo-01/config/udev/rules.d) (`49-stlinkv1.rules`, `49-stlinkv2.rules`, `49-stlinkv2-1.rules`, `49-stlinkv3.rules`) e copie-os para `/etc/udev/rules.d`:
+
+```console
+foo@bar$ sudo cp 49-stlink*.rules /etc/udev/rules.d/
+foo@bar$ sudo service udev restart
+foo@bar$ sudo udevadm control --reload
+```
+
+Desconecte e reconecte o ST-LINK (`usbipd detach` / `usbipd attach` no PowerShell) para que a nova regra seja aplicada, e confira que o dispositivo agora tem permissão de leitura/escrita para qualquer usuário:
+
+```console
+foo@bar$ lsusb
+foo@bar$ ls -l /dev/bus/usb/001/00X
+```
+
+## Compilador, Make e controle de versão
+
+Instale o **GCC** (compilador C para a sua própria máquina, usado apenas para testes rápidos), o **GNU Make** e o **Git**:
+
+```console
+foo@bar$ sudo apt install build-essential git
+```
+
+O pacote `build-essential` já traz o **GNU Make** junto. A automação do processo de build no curso é feita com Make: escrevemos o `Makefile` manualmente, regra por regra, ao invés de utilizar geradores como o **CMake**. Isso garante que você entenda exatamente cada etapa do processo — compilação, geração de dependências, *linking* e conversão para binário — sem nenhuma camada adicional escondendo o que está de fato acontecendo. Ferramentas de build de mais alto nível, como o CMake, podem ser exploradas mais adiante, já no contexto do projeto integrador, quando a escala do projeto justificar essa camada extra de automação.
+
+Configure seu nome e e-mail no Git — usaremos `git clone` para distribuir os arquivos de cada atividade:
+
+```console
+foo@bar$ git config --global user.name "seu nome aqui"
+foo@bar$ git config --global user.email "seu e-mail aqui"
+```
+
+## GNU Arm Embedded Toolchain
+
+O `arm-none-eabi-gcc` é o compilador **cruzado**: roda na sua máquina (x86_64), mas gera código para a arquitetura ARM Cortex-M. O projeto é hospedado no GitLab da ARM:
+
+**[Arm GNU Toolchain — releases](https://gitlab.arm.com/tooling/gnu-toolchains-for-arm)** → escolha a *tag* da versão mais recente (no momento em que este roteiro foi escrito, **15.3.rel1**) → dentro da página da release, copie o link do pacote `.tar.xz` para Linux x86_64 (`arm-none-eabi`).
+
+::: {.callout-tip}
+Versão atual usada neste roteiro: **15.3.rel1**. Confira em [gitlab.arm.com/tooling/gnu-toolchains-for-arm](https://gitlab.arm.com/tooling/gnu-toolchains-for-arm) se já existe uma versão mais nova e ajuste o número abaixo antes de baixar.
 :::
+
+```console
+foo@bar$ cd ~/Downloads
+foo@bar$ wget https://gitlab.arm.com/api/v4/projects/tooling%2Fgnu-toolchains-for-arm/packages/generic/gnu-toolchain/15.3.rel1/arm-gnu-toolchain-15.3.rel1-x86_64-arm-none-eabi.tar.xz
+```
+
+Descompacte no diretório `/usr/share` e crie links simbólicos em `/usr/bin` para facilitar o uso:
+
+```console
+foo@bar$ sudo tar xf arm-gnu-toolchain-15.3.rel1-x86_64-arm-none-eabi.tar.xz -C /usr/share/
+foo@bar$ sudo ln -s /usr/share/arm-gnu-toolchain-15.3.rel1-x86_64-arm-none-eabi/bin/* /usr/bin/
+```
+
+Teste a instalação:
+
+```console
+foo@bar$ arm-none-eabi-gcc --version
+foo@bar$ arm-none-eabi-g++ --version
+foo@bar$ arm-none-eabi-gdb --version
+```
+
+## OpenOCD
+
+Tente primeiro instalar via `apt` — versões recentes do Ubuntu já trazem um OpenOCD razoavelmente atualizado, com bom suporte a STM32/ST-LINK:
+
+```console
+foo@bar$ sudo apt install openocd
+foo@bar$ openocd --version
+```
+
+::: {.callout-tip}
+Se a versão instalada for antiga (menor que 0.12) ou não reconhecer seu gravador, compile a partir do código-fonte: clone `https://git.code.sf.net/p/openocd/code`, confira as tags disponíveis com `git tag`, mude para a última tag estável (`git switch -c <tag>`) e siga o processo `./bootstrap && ./configure --enable-stlink && make && sudo make install`, descrito em detalhe no `README` do próprio repositório.
+:::
+
+## Ferramentas stlink
+
+As ferramentas **st-info**, **st-flash** e **st-util** (usada pelo VS Code via Cortex-Debug) complementam o OpenOCD. Tente primeiro via `apt`:
+
+```console
+foo@bar$ sudo apt install stlink-tools
+foo@bar$ st-info --version
+```
+
+::: {.callout-tip}
+Se precisar de uma versão mais recente, compile a partir do repositório oficial [stlink-org/stlink](https://github.com/stlink-org/stlink): clone o repositório, confira as tags com `git tag`, mude para a última tag estável, e rode `make release && sudo make install` (instale antes as dependências `cmake libusb-1.0-0 libusb-1.0-0-dev`).
+:::
+
+## Visual Studio Code
+
+Baixe e instale o **VS Code para Windows** em [code.visualstudio.com/download](https://code.visualstudio.com/download).
+
+Instale as seguintes extensões (**Ctrl+Shift+X** para abrir a loja de extensões):
+
+* **Remote - WSL** — permite que o VS Code rodando no Windows edite e execute comandos diretamente dentro do WSL;
+* **C/C++** (ou o **C/C++ Extension Pack**) — edição, IntelliSense e depuração em C/C++;
+* **Cortex-Debug** — depuração de dispositivos ARM Cortex-M via SWD/JTAG, integrada ao OpenOCD/GDB.
+
+Após instalar o **Remote - WSL**, clique no ícone verde no canto inferior esquerdo do VS Code e abra uma nova janela remota conectada ao WSL. Extensões instaladas localmente no Windows não valem automaticamente dentro do WSL — instale novamente **C/C++** e **Cortex-Debug** dentro dessa janela remota.
+
+## Verificação final
+
+Ao final deste roteiro, os seguintes comandos devem funcionar sem erro dentro do terminal Ubuntu (WSL):
+
+```console
+foo@bar$ arm-none-eabi-gcc --version
+foo@bar$ openocd --version
+foo@bar$ st-info --version
+foo@bar$ git --version
+```
+
+E o VS Code (janela remota WSL) deve mostrar **Remote - WSL**, **C/C++** e **Cortex-Debug** na lista de extensões instaladas. Com isso, o ambiente está pronto para o primeiro laboratório prático do curso.
 
 ## Referências
 
-[1] [STM32F411xC/E Datasheet](https://www.st.com/resource/en/datasheet/stm32f411ce.pdf)
+[1] [Instalar o WSL](https://docs.microsoft.com/pt-br/windows/wsl/install)
 
-[2] [RM0383 Reference Manual — STM32F411xC/E advanced ARM-based 32-bit MCUs](https://www.st.com/resource/en/reference_manual/rm0383-stm32f411xce-advanced-armbased-32bit-mcus-stmicroelectronics.pdf)
+[2] [Conectar dispositivos USB ao WSL (usbipd-win)](https://github.com/dorssel/usbipd-win)
 
-[3] [ARMv7-M Architecture Reference Manual](https://developer.arm.com/documentation/ddi0403/latest/)
+[3] [Arm GNU Toolchain — releases (GitLab)](https://gitlab.arm.com/tooling/gnu-toolchains-for-arm)
 
-[4] [Using the GNU Compiler Collection (GCC)](https://gcc.gnu.org/onlinedocs/gcc/index.html)
+[4] [OpenOCD](https://openocd.org/)
 
-[5] [GNU Make Manual](https://www.gnu.org/software/make/manual/html_node/index.html)
+[5] [stlink-org/stlink](https://github.com/stlink-org/stlink)
 
-[6] [Using ld, the GNU linker](https://sourceware.org/binutils/docs/ld/)
+[6] [STM32F411xC/E Datasheet](https://www.st.com/resource/en/datasheet/stm32f411ce.pdf)
+
+[7] [RM0383 Reference Manual — STM32F411xC/E advanced ARM-based 32-bit MCUs](https://www.st.com/resource/en/reference_manual/rm0383-stm32f411xce-advanced-armbased-32bit-mcus-stmicroelectronics.pdf)
+
+[8] [Using the GNU Compiler Collection (GCC)](https://gcc.gnu.org/onlinedocs/gcc/index.html)
+
+[9] [GNU Make Manual](https://www.gnu.org/software/make/manual/html_node/index.html)
+
+[10] [Using ld, the GNU linker](https://sourceware.org/binutils/docs/ld/)

@@ -18,6 +18,7 @@ book:
     - index.qmd
     - part: "Módulo 1 — Fundamentos e Toolchain"
       chapters:
+        - modulo-01/linux-basico.qmd
         - modulo-01/index.qmd
     - part: "Módulo 2 — Clocks e GPIO"
     - part: "Módulo 3 — Temporização e Comunicação Serial"
