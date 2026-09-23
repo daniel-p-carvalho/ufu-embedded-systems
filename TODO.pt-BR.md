@@ -2,6 +2,17 @@
 
 Lista de pendências identificadas durante a reestruturação do curso. Não está em ordem de prioridade estrita — itens marcados 🔥 são os mais urgentes/bloqueantes.
 
+## Atividade extra-classe — Captura de Esquemático e Layout de PCB (Altium)
+
+Prática histórica do professor, ainda não incorporada ao material. **Não urgente/não bloqueante** — é atividade extra-classe (o estudante faz por conta própria, fora do ritmo das aulas ao vivo; o professor só corrige a entrega/certificado no fim, como um trabalho). Não exige reestruturação de cronograma nem antecipar a introdução do Altium no curso. Duas peças:
+
+1. **Curso/certificação Altium Designer** — pedir que o estudante complete o curso MOOC do **Altium Student Lab** (schematic capture, PCB layout, documentação de fabricação, termina em certificado/badge) e apresente o certificado. Já existe um guia pronto de cadastro, feito por um ex-aluno: `livros/Guia para cadastro de estudante no Altium Designer.pdf` (autor: João Vitor Ramos Mitidiero, github.com/jvhardev303 — **creditar ao adaptar**). 14 passos: Student Lab (altium.com/education/students) → email institucional @ufu.br + "UFU" como instituição → verificação via portal UFU → 2 emails de confirmação → ativação AltiumLive → criação de senha → licença de estudante ativa. **Já foi passado aos estudantes deste semestre por fora do material** — incorporar ao site é só para persistir/formalizar, sem pressa.
+2. **Atividade prática de PCB:** layout de uma placa compatível com o formato **Arduino Nano**, usando um **chip STM32** (não o AVR do Nano original) — historicamente pedida no meio do semestre, como trabalho independente do cronograma de aulas.
+
+- [ ] Adaptar o guia de cadastro do Altium (creditando o autor original) pro formato do site/material, quando houver tempo.
+- [ ] Escrever o enunciado da atividade de PCB (Arduino Nano + STM32) — decidir: chip específico sugerido, requisitos mínimos do layout (footprint, alimentação, ao menos um LED/botão?), critérios de correção, prazo.
+- [ ] Avaliar se essa atividade de PCB tem alguma relação com o projeto integrador do mini game (Módulo 5) — por exemplo, o estudante desenhar sua própria placa Arduino-Nano-compatível com STM32 poderia virar a base de hardware do próprio mini game, em vez de comprar um kit pronto? (Ideia em aberto, não decidida — avaliar custo/prazo de fabricação de PCB antes de comprometer.)
+
 ## ⚠️ Questão estrutural em aberto — Módulo vs. Semana
 
 Levantado ao criar a primeira atividade avaliativa: dividir o livro em **Módulos** (como está hoje: `_quarto.yml` usa `part: "Módulo X — ..."`) funciona bem pra um livro/material de referência, mas pode não ser o ideal pra **acompanhar o ritmo de uma sala de aula**, que pensa em **semanas** (cronograma, datas de entrega, o que dar em cada aula). Precisamos decidir:
