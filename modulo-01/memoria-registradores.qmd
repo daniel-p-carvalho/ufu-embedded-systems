@@ -1,0 +1,83 @@
+---
+title: "Memória e Registradores"
+---
+
+# Memória e Registradores
+
+Este capítulo cobre como um processador guarda e acessa dados — dos registradores internos da CPU até o armazenamento permanente. São conceitos genéricos, válidos para qualquer arquitetura; no próximo capítulo, veremos a versão específica desses mesmos conceitos no Cortex-M (registradores R0-R15, SP, LR, PC).
+
+Vale prestar atenção especial nas seções de **memória volátil/não-volátil** e **pilha** — elas explicam diretamente por que o `startup.c` que você vai escrever no roteiro de Ambiente e Ferramentas precisa copiar dados da Flash para a RAM antes de chamar `main()`, e por que o `STACK_START` aponta para o fim da SRAM.
+
+## Hierarquia de Memória
+
+Nenhum processador usa um único tipo de memória para tudo. Existe uma **hierarquia**: quanto mais rápida a memória, menor e mais cara ela é por byte; quanto mais lenta, maior e mais barata. Do nível mais próximo da CPU ao mais distante:
+
+1. **Registradores** — dentro da própria CPU. Acesso em um único ciclo de clock, mas em quantidade muito limitada (dezenas de posições, cada uma de 32 ou 64 bits).
+2. **Cache (L1, L2, ...)** — memória rápida entre a CPU e a RAM, guarda cópias de dados usados recentemente. Processadores de alto desempenho (como os Cortex-A) têm cache; a maioria dos microcontroladores Cortex-M **não tem** — mais um motivo pelo qual o tempo de execução em sistemas embarcados é mais previsível.
+3. **RAM (memória principal)** — capacidade bem maior que registradores/cache, mas ordens de magnitude mais lenta. É onde variáveis e dados em uso durante a execução do programa ficam.
+4. **Armazenamento não-volátil (Flash, SSD, HD)** — a maior capacidade, e a mais lenta. Guarda o programa e dados que precisam sobreviver a um desligamento.
+
+Em um microcontrolador como o STM32F411 que usaremos, essa hierarquia fica bem mais enxuta que num PC: não há cache nem SSD — apenas alguns KB de **SRAM** (registradores mais a memória principal) e algumas centenas de KB de **Flash** (o armazenamento não-volátil).
+
+## Memória Volátil vs. Não-Volátil
+
+Essa distinção é uma das mais importantes para sistemas embarcados:
+
+* **Memória volátil** (RAM/SRAM): perde todo o conteúdo assim que a energia é desligada. Rápida para leitura e escrita — é onde variáveis, pilha e dados em uso durante a execução ficam.
+* **Memória não-volátil** (Flash, ROM, EEPROM): mantém o conteúdo mesmo sem energia. Mais lenta para escrita (às vezes exige apagar um bloco inteiro antes de regravar) — é onde o **código do programa** e constantes ficam armazenados entre uma execução e outra.
+
+Isso tem uma consequência direta e prática: quando você liga o microcontrolador, o programa (código + valores iniciais de variáveis globais) já está gravado na Flash — mas as variáveis **precisam existir na RAM** para poderem ser lidas e escritas durante a execução. Alguém precisa copiar os valores iniciais da Flash para a RAM antes do programa começar de verdade.
+
+Esse "alguém" é exatamente o código de inicialização (`startup.c`) que você vai escrever no roteiro de Ambiente e Ferramentas: ele copia a seção `.data` (variáveis globais inicializadas) da Flash para a RAM, e zera a seção `.bss` (variáveis globais não-inicializadas) diretamente na RAM — tudo isso **antes** de chamar `main()`.
+
+## Registradores
+
+Um **registrador** é uma pequena unidade de memória de altíssima velocidade, embutida diretamente na CPU. Diferente da RAM, registradores não têm um "endereço de memória" no sentido tradicional — são acessados diretamente pelo nome (`R0`, `R1`, ...) nas instruções.
+
+Todo processador tem um **banco de registradores**, tipicamente dividido em duas categorias:
+
+* **Registradores de propósito geral:** usados livremente pelo programa (ou pelo compilador) para guardar valores temporários durante cálculos.
+* **Registradores de propósito especial:** têm um papel fixo definido pela arquitetura — por exemplo, um registrador que sempre aponta para o topo da pilha, ou um que guarda o endereço da próxima instrução a executar.
+
+Lembrando o que vimos no capítulo anterior: na arquitetura Load-Store, **toda** operação aritmética/lógica só acontece entre registradores — nunca diretamente na memória. Isso faz do banco de registradores a "bancada de trabalho" da ALU: um dado precisa ser carregado (`LOAD`) da memória para um registrador antes de ser processado, e o resultado precisa ser salvo (`STORE`) de volta na memória quando necessário.
+
+## A Pilha (Stack)
+
+A **pilha** (*stack*) é uma região da memória RAM organizada como uma estrutura de dados **LIFO** (*Last In, First Out* — o último dado colocado é o primeiro a sair). Duas operações a definem:
+
+* **PUSH:** empilha um novo valor no topo da pilha.
+* **POP:** remove e retorna o valor do topo da pilha.
+
+Um registrador especial, o **Stack Pointer (SP)**, sempre aponta para o topo atual da pilha, e é atualizado automaticamente a cada `PUSH`/`POP`.
+
+Pra que serve a pilha? Três usos centrais:
+
+* **Variáveis locais:** quando uma função é chamada, suas variáveis locais costumam viver na pilha, sendo automaticamente liberadas quando a função retorna.
+* **Endereço de retorno:** quando uma função `A()` chama uma função `B()`, o endereço de onde `A()` deve continuar depois que `B()` terminar é empilhado antes de desviar para `B()`.
+* **Preservar registradores:** se `B()` precisa usar um registrador que `A()` já estava usando, o valor antigo pode ser empilhado no início de `B()` e recuperado (`POP`) antes de retornar, sem que `A()` perceba a diferença.
+
+Isso explica por que, no `startup.c`, a primeira coisa que se define é justamente o endereço inicial da pilha — antes mesmo de qualquer código rodar, o processador precisa saber onde a pilha começa. Nos processadores ARM Cortex-M, essa área normalmente é posicionada no **final da SRAM** (o motivo: a pilha cresce "para baixo", em direção a endereços menores, então começar no topo da memória disponível maximiza o espaço utilizável antes de colidir com dados globais, que crescem "para cima" a partir do início da RAM).
+
+## Modos de Endereçamento
+
+**Modo de endereçamento** é a forma como uma instrução especifica *onde* está o dado que ela vai processar. Os mais comuns:
+
+| Modo | O que significa | Exemplo (sintaxe ilustrativa) |
+|---|---|---|
+| **Imediato** | O valor está embutido na própria instrução | `MOV R0, #10` (coloca o número 10 em R0) |
+| **Registrador** | O valor está em outro registrador | `MOV R0, R1` (copia o valor de R1 para R0) |
+| **Direto (absoluto)** | O endereço de memória está embutido na instrução | `LDR R0, [0x2000\_0000]` |
+| **Indireto (por registrador)** | Um registrador contém o *endereço* onde está o dado | `LDR R0, [R1]` (R1 guarda o endereço; carrega o dado que está lá) |
+| **Indexado (com deslocamento)** | Um registrador contém uma base, somada a um deslocamento fixo | `LDR R0, [R1, #4]` (lê o endereço R1+4) |
+
+: {tbl-colwidths="[20,40,40]"}
+
+O modo indexado é particularmente comum ao acessar campos de uma estrutura de dados ou elementos de um vetor — e, como veremos adiante, é exatamente essa técnica que usamos para acessar registradores de periféricos a partir de um endereço-base mais um deslocamento (ex.: `STM32_GPIOC_BASE + STM32_GPIO_MODER_OFFSET`).
+
+## Referências
+
+[1] [ARMv7-M Architecture Reference Manual](https://developer.arm.com/documentation/ddi0403/latest/)
+
+[2] Patterson, D. A.; Hennessy, J. L. *Computer Organization and Design: The Hardware/Software Interface*.
+
+[3] Tanenbaum, A. S. *Structured Computer Organization*.

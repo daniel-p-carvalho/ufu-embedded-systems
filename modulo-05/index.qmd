@@ -9,7 +9,7 @@ Este módulo introduz o design de hardware, encerrando o curso com o projeto int
 O desenvolvimento de hardware moderno é indissociável das ferramentas **EDA** (*Electronic Design Automation*). Estes ecossistemas automatizam a transição entre o conceito teórico e a implementação física, sendo indispensáveis para projetar, simular e validar esquemas eletrônicos com rigor técnico. Através de recursos avançados — como a verificação de regras elétricas (**ERC**) e de layout (**DRC**), visualização 3D e exportação de arquivos Gerber — as ferramentas **EDA** garantem que o layout da **PCB** possua a precisão necessária para a fabricação industrial.
 
 ::: {.content-card}
-#### **Altium Designer**
+#### **Altium Designer** {.unnumbered}
 
 ::: {.grid}
 ::: {.g-col-12 .g-col-md-3 .text-center}
@@ -26,7 +26,7 @@ O desenvolvimento de hardware moderno é indissociável das ferramentas **EDA** 
 :::
 
 ::: {.content-card}
-#### **KiCad EDA**
+#### **KiCad EDA** {.unnumbered}
 
 ::: {.grid}
 ::: {.g-col-12 .g-col-md-3 .text-center}
@@ -42,7 +42,7 @@ Alternativa **open-source**, sem custos de licenciamento e com uma comunidade gl
 :::
 
 ::: {.content-card}
-#### **Autodesk Fusion 360**
+#### **Autodesk Fusion 360** {.unnumbered}
 
 ::: {.grid}
 ::: {.g-col-12 .g-col-md-3 .text-center}

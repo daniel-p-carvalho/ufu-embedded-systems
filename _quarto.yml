@@ -18,6 +18,9 @@ book:
     - index.qmd
     - part: "Módulo 1 — Fundamentos e Toolchain"
       chapters:
+        - modulo-01/o-que-e-sistema-embarcado.qmd
+        - modulo-01/arquitetura-computadores.qmd
+        - modulo-01/memoria-registradores.qmd
         - modulo-01/linux-basico.qmd
         - modulo-01/index.qmd
     - part: "Módulo 2 — Clocks e GPIO"
@@ -40,7 +43,10 @@ book:
 format:
   html:
     theme: cosmo
-    css: styles.css
+    css:
+      - styles.css
+      - shared/webex/webex.css
+    include-after-body: shared/webex/webex.js
     toc: true
     toc-expand: true
     number-sections: true

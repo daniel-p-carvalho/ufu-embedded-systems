@@ -1,11 +1,11 @@
 ---
-title: "Aula Opcional: Fundamentos de Linux"
+title: "Fundamentos de Linux"
 ---
 
-# Aula Opcional: Fundamentos de Linux {.unnumbered}
+# Fundamentos de Linux
 
 ::: {.callout-note}
-Esta é uma aula **opcional**, pensada para estudo autônomo. Se você já tem familiaridade com terminal Linux, pode pular direto para [Ambiente e Ferramentas de Desenvolvimento](index.qmd). Se é sua primeira vez usando um terminal Linux, siga a aula na ordem — cada seção termina com uma atividade de fixação antes de avançar para a próxima.
+Esta aula cobre o terminal Linux que você vai usar em todas as atividades práticas do curso. Se você já tem familiaridade com ele, ainda assim vale passar rapidamente por cada seção — cada uma termina com uma atividade de fixação, que pode servir de checagem rápida antes de avançar.
 :::
 
 ## Por que terminal antes de interface gráfica?
@@ -409,3 +409,31 @@ Esses conceitos não são "cultura geral" — você vai usá-los diretamente:
 * `nano` para editar rapidamente as regras `udev` que vamos copiar para `/etc/udev/rules.d`, exatamente no roteiro de [Ambiente e Ferramentas de Desenvolvimento](index.qmd);
 * Permissões de arquivo para entender por que o ST-LINK "não aparece" até configurarmos essas regras corretamente;
 * `find`/`grep` para localizar arquivos e trechos de código em projetos com dezenas de arquivos fonte — cada vez mais úteis conforme os laboratórios crescem.
+
+## Questionário de revisão
+
+Confira o que ficou antes de seguir para o próximo capítulo. Preencha ou selecione cada resposta e clique em **"Show Answers"** ao final para conferir.
+
+::: {.webex-check .webex-box}
+
+1. O comando que mostra o caminho completo do diretório atual é <input class='webex-solveme nospaces ignorecase' data-answer='["pwd"]' size='6'/>
+
+2. Qual opção do `ls` exibe também os arquivos ocultos? <select class='webex-select'><option value='blank'></option><option value='x'>-l</option><option value='answer'>-a</option><option value='x'>-R</option></select>
+
+3. `Sample.txt` e `sample.txt` são o mesmo arquivo no Linux. <select class='webex-select'><option value='blank'></option><option value='x'>Verdadeiro</option><option value='answer'>Falso</option></select>
+
+4. O atalho que representa "o diretório pai" (um nível acima) é <input class='webex-solveme nospaces' data-answer='[".."]' size='4'/>
+
+5. Qual comando busca um trecho de **texto dentro do conteúdo** de arquivos? <select class='webex-select'><option value='blank'></option><option value='x'>find</option><option value='answer'>grep</option><option value='x'>ls</option></select>
+
+6. Qual opção do `rm` remove sem pedir confirmação, mesmo que o arquivo não exista? <select class='webex-select'><option value='blank'></option><option value='x'>-i</option><option value='answer'>-f</option><option value='x'>-v</option></select>
+
+7. O `sudo` abre uma sessão permanente como superusuário, válida para todos os comandos seguintes até você sair do terminal. <select class='webex-select'><option value='blank'></option><option value='x'>Verdadeiro</option><option value='answer'>Falso</option></select>
+
+8. Para sair do `vim` **sem salvar** as alterações, em modo Normal você digita <input class='webex-solveme nospaces' data-answer='[":q!"]' size='6'/>
+
+9. Dentro do paginador do `man` (ou do `less`), qual tecla você pressiona para sair? <select class='webex-select'><option value='blank'></option><option value='answer'>q</option><option value='x'>x</option><option value='x'>Esc</option></select>
+
+10. O caractere que conecta a saída de um comando à entrada do próximo é <input class='webex-solveme nospaces' data-answer='["|"]' size='4'/>
+
+:::

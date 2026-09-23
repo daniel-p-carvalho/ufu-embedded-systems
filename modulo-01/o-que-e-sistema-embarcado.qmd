@@ -1,0 +1,49 @@
+---
+title: "O que é um Sistema Embarcado?"
+---
+
+# O que é um Sistema Embarcado?
+
+## Definição
+
+Diferente de um computador de propósito geral (como um desktop ou laptop), projetado para executar uma infinidade de tarefas — desde edição de vídeo até navegação na web —, um **Sistema Embarcado** (*Embedded System*) é um sistema computacional microprocessado projetado para realizar uma função **dedicada ou específica**, dentro de um sistema maior.
+
+O termo "embarcado" refere-se justamente a isso: o sistema de processamento está **embutido** dentro de um dispositivo maior, muitas vezes como parte de um sistema mecânico ou elétrico. Ele é o "cérebro" invisível de produtos que usamos todos os dias — uma máquina de lavar, um termostato, a injeção eletrônica de um carro, um dispositivo médico — sem que percebamos que existe um computador ali dentro.
+
+## Características Principais
+
+* **Custo:** geralmente projetados para produção em larga escala, com componentes de baixo custo unitário — a margem por unidade costuma ser bem mais apertada que a de um computador pessoal.
+* **Eficiência Energética:** muitas vezes operam por bateria, ou sob restrições rígidas de dissipação térmica (sem cooler, sem ventilação ativa).
+* **Determinismo:** precisam responder a eventos externos dentro de prazos estritos e previsíveis — um airbag que dispara alguns milissegundos atrasado não serve pra nada.
+* **Robustez:** operam em ambientes variados (vibração, temperatura, umidade, ruído elétrico) e precisam de alta confiabilidade — muitas vezes rodando ininterruptamente por anos, sem reinicialização.
+
+Repare que nenhuma dessas quatro é uma preocupação central no design de um notebook ou smartphone: lá, o que importa é desempenho bruto e experiência de uso. Em um sistema embarcado, a otimização é outra — fazer exatamente o necessário, com o menor custo, consumo e risco de falha possíveis.
+
+## Onde eles estão?
+
+Sistemas embarcados estão presentes em praticamente toda a tecnologia moderna:
+
+| Área | Exemplos |
+|---|---|
+| Saúde | Marcapassos, monitores cardíacos, bombas de infusão |
+| Automotivo | Injeção eletrônica, sistemas de freio ABS, airbags |
+| Doméstico | Micro-ondas, máquinas de lavar, smart TVs |
+| Industrial | Controladores lógicos programáveis (CLPs), sensores inteligentes |
+
+: {tbl-colwidths="[25,75]"}
+
+Uma estimativa comum na indústria é que, para cada microprocessador de propósito geral vendido (o tipo que vai dentro de um PC), existem **dezenas** de microcontroladores embarcados vendidos para essas aplicações — a grande maioria deles totalmente invisível para quem usa o produto final.
+
+## Sistemas Embarcados vs. Computadores de Propósito Geral
+
+| | Computador de Propósito Geral | Sistema Embarcado |
+|---|---|---|
+| **Função** | Executa qualquer programa que o usuário instale | Executa uma função fixa, definida em projeto |
+| **Sistema Operacional** | Completo (Windows, Linux, macOS), multitarefa | Frequentemente nenhum, ou um RTOS minimalista |
+| **Interface com o usuário** | Teclado, mouse, monitor | Muitas vezes nenhuma, ou botões/LEDs simples |
+| **Recursos (memória, processamento)** | Abundantes, escaláveis | Limitados, dimensionados para o custo do produto |
+| **Tempo de resposta** | "Rápido o suficiente" geralmente basta | Frequentemente crítico — atrasos podem ser inaceitáveis |
+
+: {tbl-colwidths="[20,40,40]"}
+
+Esse contraste é o ponto de partida de todo o curso: você já sabe programar para o primeiro tipo de sistema (com Programação Procedimental em C); agora vamos aprender a projetar para o segundo — onde cada byte de memória e cada ciclo de clock precisam ser levados em conta, e onde não existe um sistema operacional escondendo o hardware por baixo dos panos.
