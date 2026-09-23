@@ -47,3 +47,19 @@ Uma estimativa comum na indústria é que, para cada microprocessador de propós
 : {tbl-colwidths="[20,40,40]"}
 
 Esse contraste é o ponto de partida de todo o curso: você já sabe programar para o primeiro tipo de sistema (com Programação Procedimental em C); agora vamos aprender a projetar para o segundo — onde cada byte de memória e cada ciclo de clock precisam ser levados em conta, e onde não existe um sistema operacional escondendo o hardware por baixo dos panos.
+
+## Questionário de revisão
+
+::: {.webex-check .webex-box}
+
+1. Um sistema embarcado é projetado para executar uma <input class='webex-solveme nospaces ignorecase' data-answer='["função dedicada","funçãodedicada"]' size='20'/> (ou um conjunto restrito de tarefas), diferente de um computador de propósito geral.
+
+2. Qual das quatro características principais está diretamente relacionada a responder eventos dentro de prazos estritos? <select class='webex-select'><option value='blank'></option><option value='x'>Custo</option><option value='x'>Robustez</option><option value='answer'>Determinismo</option><option value='x'>Eficiência energética</option></select>
+
+3. Sistemas embarcados, em geral, têm acesso a mais recursos de memória e processamento do que computadores de propósito geral. <select class='webex-select'><option value='blank'></option><option value='x'>Verdadeiro</option><option value='answer'>Falso</option></select>
+
+4. Um controlador lógico programável (CLP) é um exemplo de sistema embarcado da área <select class='webex-select'><option value='blank'></option><option value='x'>Saúde</option><option value='x'>Automotivo</option><option value='answer'>Industrial</option><option value='x'>Doméstico</option></select>.
+
+5. Diferente de um PC, um sistema embarcado frequentemente não tem sistema operacional, ou usa um <input class='webex-solveme nospaces ignorecase' data-answer='["RTOS"]' size='8'/> minimalista.
+
+:::

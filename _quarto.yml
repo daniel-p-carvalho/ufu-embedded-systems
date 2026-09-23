@@ -21,6 +21,7 @@ book:
         - modulo-01/o-que-e-sistema-embarcado.qmd
         - modulo-01/arquitetura-computadores.qmd
         - modulo-01/memoria-registradores.qmd
+        - modulo-01/atividade-avaliativa-01.qmd
         - modulo-01/linux-basico.qmd
         - modulo-01/index.qmd
     - part: "Módulo 2 — Clocks e GPIO"

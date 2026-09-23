@@ -2,6 +2,32 @@
 
 Lista de pendências identificadas durante a reestruturação do curso. Não está em ordem de prioridade estrita — itens marcados 🔥 são os mais urgentes/bloqueantes.
 
+## ⚠️ Questão estrutural em aberto — Módulo vs. Semana
+
+Levantado ao criar a primeira atividade avaliativa: dividir o livro em **Módulos** (como está hoje: `_quarto.yml` usa `part: "Módulo X — ..."`) funciona bem pra um livro/material de referência, mas pode não ser o ideal pra **acompanhar o ritmo de uma sala de aula**, que pensa em **semanas** (cronograma, datas de entrega, o que dar em cada aula). Precisamos decidir:
+
+- Manter Módulos como a divisão estrutural do book (capítulos dentro de cada módulo), e resolver o alinhamento com semanas só no `Cronograma` (tabela mapeando semana → capítulo(s))? ou
+- Reestruturar o `_quarto.yml` pra dividir por **Semana 1, Semana 2, ...** como as `part:`, com os módulos temáticos (Fundamentos, GPIO, Timers...) virando só um agrupamento informal dentro do texto, não a estrutura de navegação?
+
+Essa decisão afeta a estrutura de todo o `_quarto.yml` e deveria ser resolvida antes de continuarmos adicionando muito mais conteúdo (quanto mais capítulos existirem, mais cara fica a reestruturação).
+
+**Decisão de rumo (ainda não implementada):** Semana vira a estrutura de navegação principal; Módulo vira só um rótulo informal dentro do texto. **Combinado explicitamente: planejar pelo menos todo o Módulo 1 em semanas antes de mexer no `_quarto.yml`** (pra não reestruturar aos pedaços).
+
+**Planejamento de semanas já fechado em conversa** (aulas de 150min teoria + 100min prática):
+
+| Semana | Teoria (150min, ao vivo) | Prática (100min) |
+|---|---|---|
+| 1 | Apresentação + O que é Sistema Embarcado + Fundamentos de Arquitetura de Computadores **inteiro** | **Não é aula ao vivo** — Roteiro de Ambiente e Ferramentas, pra fazer em casa |
+| 2 | Memória e Registradores (+ o que mais couber) | Fundamentos de Linux (ao vivo) **+ atividade de verificação** do setup da Semana 1 |
+| 3+ | A definir — depende da sequência ARM/Cortex-M ainda por escrever (ver item 🔥 abaixo, em "Módulo 1 — Estrutura e Conteúdo") | A definir — inclui migração dos labs 02/03 (startup.c, Makefile, GPIO, linker script) |
+
+- [ ] **Atividade de verificação do ambiente (Semana 2)** — decidido: entrega formal simples (print/foto/evidência de que os comandos de verificação do roteiro de Ambiente funcionaram, ou vídeo — prática atual do professor é pedir link de vídeo como "prova de vida"), conta como nota leve tipo participação/pontualidade, sem rubrica elaborada. Ainda não implementado no material (a seção "Verificação final" do roteiro de Ambiente existe só como checklist informal, não como entrega formal).
+
+## Avaliação — correção de atividades com pergunta aberta/pesquisa
+
+- [ ] A primeira atividade avaliativa (`modulo-01/atividade-avaliativa-01.qmd`) tem perguntas abertas que exigem pesquisa (não são múltipla escolha) — não dá pra corrigir automaticamente do jeito que o `webexercises` corrige o questionário de revisão. Precisamos decidir o modelo de correção: manual, ou correção assistida por IA (um agente lendo as respostas dos estudantes e sugerindo nota/feedback com base num gabarito/rubrica) — conecta com a ideia já registrada mais abaixo sobre corrigir atividades de código via IA (GitHub Classroom). O "Formato de entrega" no fim do arquivo está marcado como "a definir" até essa decisão.
+- [ ] Replicar esse mesmo padrão de atividade avaliativa (parte A verificação + parte B pesquisa) pros próximos capítulos de teoria (Histórico ARM, Cortex-M) conforme forem escritos.
+
 ## 🔥 DECISÃO TOMADA — O curso vai ser costurado em torno de um mini game
 
 Confirmado: o **projeto integrador oficial do curso passa a ser um mini videogame portátil**, substituindo a ideia anterior de projeto com sensor industrial. Cada módulo constrói uma peça dele, dando um fio condutor único pro curso inteiro (em vez de labs isolados sem conexão). Mapeamento acordado:
@@ -37,19 +63,18 @@ Cada módulo também reforça eletrônica no caminho (debounce de botão, pull-u
 
 ## Módulo 1 — Estrutura e Conteúdo
 
-- [ ] 🔥 **Reordenar capítulos do Módulo 1** conforme decidido: hoje "Ambiente e Ferramentas de Desenvolvimento" é o primeiro capítulo (prioridade de entrega urgente aos estudantes). A ordem pedagogicamente correta é:
-  1. O que é um Sistema Embarcado? (conceitual)
-  2. Arquitetura de Computadores / ARM / Cortex-M (teoria)
-  3. Ambiente e Ferramentas de Desenvolvimento (atual)
-  4. Toolchain e Startup na prática (labs)
+- [x] **Reordenar capítulos do Módulo 1** — já feito: `_quarto.yml` está na ordem O que é Sistema Embarcado → Arquitetura de Computadores → Memória e Registradores → Fundamentos de Linux → Ambiente e Ferramentas. Falta ainda inserir a sequência ARM/Cortex-M (ver item logo abaixo) no lugar certo, e depois os labs práticos — ordem final depende do planejamento por Semana (ver seção "Módulo vs. Semana" no topo deste arquivo).
 - [x] **Escrever capítulo "O que é um Sistema Embarcado?"** — `modulo-01/o-que-e-sistema-embarcado.qmd`, feito.
 - [x] **Escrever capítulo "Fundamentos de Arquitetura de Computadores"** — `modulo-01/arquitetura-computadores.qmd` (ISA/Organização/Implementação, Von Neumann, Load-Store vs. Register-Memory, exemplos de arquiteturas), feito.
 - [x] **Escrever capítulo "Memória e Registradores"** — `modulo-01/memoria-registradores.qmd` (hierarquia de memória, volátil/não-volátil, registradores, pilha, modos de endereçamento), feito.
-- [ ] **Escrever capítulos de Histórico ARM / Cortex-M** — conteúdo-base na `APOSTILA.docx`:
-  - Histórico ARM (ARMv1 → ARMv8)
-  - Modos/registradores do Cortex-M3/M4
-  - **Atenção:** a apostila termina no meio da seção de Registradores — precisa ser complementada (exceções, NVIC) antes de virar capítulo (pilha/stack já foi coberta em `memoria-registradores.qmd`).
-  - Imagens já extraídas da apostila (transições Thread/Handler Mode, banco de registradores) — reaproveitar. A imagem de Von Neumann já foi usada em `arquitetura-computadores.qmd`.
+- [ ] 🔥 **Sequência de capítulos ARM/Cortex-M, fechada em conversa — escrever nesta ordem** (motivo: sem esses conceitos prontos, escrever `startup.c`/linker script na prática vira decoreba, não compreensão real):
+  1. **Introdução aos Processadores ARM Cortex-M** — o que são, diferença processador vs. microcontrolador, ecossistema ARM/fabricantes. Referência estrutural: **Yiu, Cap. 1**.
+  2. **Introdução ao Desenvolvimento de Software Embarcado** — cross-development, papel do C, por que não Arduino/ESP32, apresentação do kit oficial + alternativas (STM32 M3/M4 qualquer). **Fecha a lacuna da "prática motivacional da Semana 1"** identificada em conversa. Referência estrutural: **Yiu, Cap. 2**.
+  3. **O Processo de Compilação e o C Runtime** (capítulo novo, não estava planejado antes) — pipeline de compilação (pré-processador → compilador → assembler → linker); o que é o C runtime (`crt0`) e o que ele faz num sistema hospedado (SO) vs. o que falta fazer manualmente em bare-metal; libc para embarcados (**newlib, newlib-nano** — por que uma libc menor, *syscall stubs* como `_write`/`_sbrk`); completar o conceito de **Heap** (só Stack foi coberto em `memoria-registradores.qmd` até agora).
+  4. **Arquitetura do Cortex-M** — registradores específicos (R0-R12, SP com MSP/PSP, LR, PC, xPSR), modos de operação (Thread/Handler, privilegiado/não-privilegiado). Referência estrutural: **Yiu, Cap. 4**. Conteúdo-base parcial já existe na `APOSTILA.docx` (termina no meio de "Registradores" — completar). Imagens já extraídas da apostila (transições Thread/Handler Mode, banco de registradores) — reaproveitar.
+  5. **Tabela de Vetores de Interrupção e Processo de Reset do Cortex-M** — formato da tabela, registrador VTOR, sequência exata de reset (hardware carrega SP do vetor[0], PC do vetor[1]).
+  - **Referência principal para todo esse bloco:** Joseph Yiu, *The Definitive Guide to ARM® Cortex®-M3 and Cortex®-M4 Processors*, 3ª edição (Newnes, 2013) — PDF em `livros/`. **Usar só como referência estrutural/técnica, nunca copiar texto do livro diretamente** (direitos autorais) — escrever conteúdo original, citando o livro nas Referências de cada capítulo, como já fazemos com o ARMv7-M Reference Manual.
+  - Depois de escritos, replicar o padrão de questionário de revisão (`webexercises`) e atividade avaliativa (Parte A verificação + Parte B pesquisa) usado nos capítulos já prontos.
 - [ ] **Migrar conteúdo dos labs 02/03** (`ufu-semb1-lab-02`, `ufu-semb1-lab-03`) para dentro do Módulo 1:
   - lab-02 "Blinky 01": cross-compilation, `startup.c` do zero, Makefile incremental
   - lab-03 "Roteiro-01": GPIO por registrador, análise de ELF, linker script do zero

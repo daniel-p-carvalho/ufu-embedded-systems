@@ -1,0 +1,35 @@
+---
+title: "Atividade Avaliativa 1 — Fundamentos"
+---
+
+# Atividade Avaliativa 1 — Fundamentos
+
+Esta atividade cobre os capítulos **O que é um Sistema Embarcado?**, **Fundamentos de Arquitetura de Computadores** e **Memória e Registradores**.
+
+::: {.callout-important title="Antes de começar"}
+Esta atividade tem duas partes, com pesos diferentes. A **Parte A** verifica se você entendeu o que foi apresentado no material do curso. A **Parte B** exige que você **pesquise por conta própria**, além do que foi escrito aqui — o objetivo não é encontrar a resposta pronta em algum lugar do material do curso (ela não está), mas construir sua própria resposta a partir de fontes externas. **Cite a fonte** de cada resposta da Parte B (link, livro, documentação oficial do fabricante, etc.) e escreva **com suas próprias palavras** — respostas coladas diretamente de uma fonte (ou geradas por IA sem nenhuma elaboração própria) não serão aceitas.
+:::
+
+## Parte A — Verificação de entendimento (peso 3)
+
+1. Explique, com suas próprias palavras (não copie o texto do curso), a diferença entre uma arquitetura **CISC** e uma **RISC**.
+2. Descreva o **ciclo Fetch-Decode-Execute**, explicando o papel do Program Counter (PC) em cada etapa.
+3. Por que a pilha (*stack*), nos processadores ARM Cortex-M, costuma ser posicionada no final da SRAM e crescer "para baixo"?
+
+## Parte B — Pesquisa e aprofundamento (peso 7)
+
+4. **Escolha um processador que não foi mencionado no material do curso** (por exemplo: Zilog Z80, DEC Alpha, IBM POWER, SPARC, Intel Itanium, AMD Ryzen, Apple A-series, Qualcomm Snapdragon para celular, etc.). Pesquise e responda: ele é CISC ou RISC? Qual ISA ele implementa? Em quais produtos ele foi ou é usado? **Cite a fonte** da sua pesquisa.
+
+5. **Descubra qual processador está dentro do seu próprio celular ou notebook** (o modelo exato do chip, não só a marca do aparelho). Ele é baseado em ARM, x86, ou outra arquitetura? É CISC ou RISC? Cite onde você encontrou essa informação (especificações do fabricante, site especializado, etc.).
+
+6. O material do curso apresentou a arquitetura **Harvard** como uma forma de mitigar o Gargalo de Von Neumann. Pesquise **outra técnica** usada em processadores modernos para lidar com esse mesmo problema (dica: pipeline de instruções, memória cache, previsão de desvio/*branch prediction*). Explique como ela funciona, com suas próprias palavras, e cite a fonte.
+
+7. O material do curso não fez distinção entre **SRAM** (memória estática) e **DRAM** (memória dinâmica) — só falou em "RAM" de forma genérica. Pesquise a diferença entre as duas. Qual delas é usada dentro do processador (registradores/cache), e qual é usada como a memória principal ("RAM") de um computador? Por que essa escolha faz sentido, considerando velocidade e custo?
+
+## Parte C — Bônus (peso 1, opcional)
+
+8. Pesquise o que é **pipeline de instruções** em um processador, e explique como ele se relaciona com o ciclo Fetch-Decode-Execute que vimos no curso — por que ele permite que várias instruções sejam processadas "ao mesmo tempo", mesmo cada uma ainda seguindo o ciclo fetch-decode-execute individualmente?
+
+## Formato de entrega
+
+*(a definir — depende de como a correção será feita: manualmente, ou com apoio de correção automatizada/assistida por IA. Ver observação no controle interno do curso.)*

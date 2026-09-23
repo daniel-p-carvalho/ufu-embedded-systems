@@ -232,6 +232,28 @@ O AVR também usa arquitetura **Harvard** — memória de programa (Flash) e mem
 
 No próximo capítulo, veremos como esses princípios se concretizam na arquitetura **ARM** especificamente — sua evolução histórica, e como ela chegou ao Cortex-M que vamos programar ao longo do curso.
 
+## Questionário de revisão
+
+::: {.webex-check .webex-box}
+
+1. As três subáreas da Arquitetura de Computadores são: conjunto de instruções (ISA), organização do computador, e <input class='webex-solveme nospaces ignorecase' data-answer='["implementaçãodohardware","implementação"]' size='25'/>.
+
+2. No modelo de Von Neumann, instruções e dados ficam em memórias fisicamente separadas. <select class='webex-select'><option value='blank'></option><option value='answer'>Verdadeiro</option><option value='x'>Falso</option></select>
+
+3. No ciclo Fetch-Decode-Execute, qual registrador guarda o endereço da próxima instrução a ser buscada? <select class='webex-select'><option value='blank'></option><option value='x'>Stack Pointer (SP)</option><option value='answer'>Program Counter (PC)</option><option value='x'>Registrador de Status</option></select>
+
+4. O Gargalo de Von Neumann acontece porque busca de instrução e acesso a dado competem pelo mesmo <input class='webex-solveme nospaces ignorecase' data-answer='["barramento"]' size='15'/>.
+
+5. A arquitetura que usa barramentos separados para instrução e dados, permitindo os dois acontecerem em paralelo, se chama <input class='webex-solveme nospaces ignorecase' data-answer='["harvard"]' size='12'/>.
+
+6. Em uma arquitetura Load-Store (RISC), uma instrução `ADD` pode somar um registrador diretamente com um valor da memória. <select class='webex-select'><option value='blank'></option><option value='x'>Verdadeiro</option><option value='answer'>Falso</option></select>
+
+7. A filosofia RISC nasceu, nos anos 1980, como reação a arquiteturas <select class='webex-select'><option value='blank'></option><option value='answer'>CISC, com instruções cada vez mais complexas</option><option value='x'>de 8 bits, consideradas fracas demais</option><option value='x'>sem sistema de memória</option></select>.
+
+8. O AVR, usado no Arduino Uno, segue a filosofia <select class='webex-select'><option value='blank'></option><option value='x'>CISC</option><option value='answer'>RISC</option></select>.
+
+:::
+
 ## Referências
 
 [1] [ARMv7-M Architecture Reference Manual](https://developer.arm.com/documentation/ddi0403/latest/)

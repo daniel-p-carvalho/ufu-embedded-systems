@@ -74,6 +74,26 @@ Isso explica por que, no `startup.c`, a primeira coisa que se define é justamen
 
 O modo indexado é particularmente comum ao acessar campos de uma estrutura de dados ou elementos de um vetor — e, como veremos adiante, é exatamente essa técnica que usamos para acessar registradores de periféricos a partir de um endereço-base mais um deslocamento (ex.: `STM32_GPIOC_BASE + STM32_GPIO_MODER_OFFSET`).
 
+## Questionário de revisão
+
+::: {.webex-check .webex-box}
+
+1. Do mais rápido/menor para o mais lento/maior, a hierarquia de memória é: registradores, cache, <input class='webex-solveme nospaces ignorecase' data-answer='["ram","memóriaram"]' size='10'/>, armazenamento não-volátil.
+
+2. Memória volátil perde seu conteúdo quando a energia é desligada. <select class='webex-select'><option value='blank'></option><option value='answer'>Verdadeiro</option><option value='x'>Falso</option></select>
+
+3. O código do programa fica gravado na <select class='webex-select'><option value='blank'></option><option value='answer'>Flash (não-volátil)</option><option value='x'>RAM (volátil)</option></select>, enquanto variáveis em uso durante a execução ficam na <select class='webex-select'><option value='blank'></option><option value='x'>Flash (não-volátil)</option><option value='answer'>RAM (volátil)</option></select>.
+
+4. A pilha (stack) segue uma disciplina de acesso chamada <input class='webex-solveme nospaces' data-answer='["LIFO"]' size='8'/>.
+
+5. Qual registrador especial sempre aponta para o topo atual da pilha? <select class='webex-select'><option value='blank'></option><option value='x'>Program Counter (PC)</option><option value='answer'>Stack Pointer (SP)</option><option value='x'>Registrador de Status</option></select>
+
+6. No modo de endereçamento <select class='webex-select'><option value='blank'></option><option value='answer'>imediato</option><option value='x'>indireto</option><option value='x'>indexado</option></select>, o valor a ser usado já está embutido diretamente na instrução (ex.: `MOV R0, #10`).
+
+7. Por que a pilha, no Cortex-M, costuma começar no final da SRAM e crescer "para baixo"? Porque assim ela <select class='webex-select'><option value='blank'></option><option value='answer'>maximiza o espaço disponível antes de colidir com os dados globais, que crescem do início da RAM para cima</option><option value='x'>fica mais rápida de acessar</option><option value='x'>é obrigatória por lei da arquitetura ARM</option></select>.
+
+:::
+
 ## Referências
 
 [1] [ARMv7-M Architecture Reference Manual](https://developer.arm.com/documentation/ddi0403/latest/)
