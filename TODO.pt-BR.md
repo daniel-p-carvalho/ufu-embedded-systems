@@ -2,6 +2,10 @@
 
 Lista de pendências identificadas durante a reestruturação do curso. Não está em ordem de prioridade estrita — itens marcados 🔥 são os mais urgentes/bloqueantes.
 
+## Ajuste visual pendente — Introdução ao Desenvolvimento de Software Embarcado
+
+- [ ] **Ilustrar a seção "O que tem dentro de um microcontrolador ARM"** (`modulo-01/introducao-desenvolvimento-embarcado.qmd`) — diagrama mostrando a diferença processador vs. microcontrolador (SoC: núcleo + Flash + SRAM + periféricos + barramento interno, tudo no mesmo chip, vs. componentes separados de um PC). Seção elogiada pelo conteúdo, só falta a imagem.
+
 ## Atividade extra-classe — Captura de Esquemático e Layout de PCB (Altium)
 
 Prática histórica do professor, ainda não incorporada ao material. **Não urgente/não bloqueante** — é atividade extra-classe (o estudante faz por conta própria, fora do ritmo das aulas ao vivo; o professor só corrige a entrega/certificado no fim, como um trabalho). Não exige reestruturação de cronograma nem antecipar a introdução do Altium no curso. Duas peças:
